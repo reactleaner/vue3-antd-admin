@@ -47,7 +47,7 @@ export function filterAsyncRoute(
           perms: [],
           icon: icon,
           keyPath: lastKeyPath.concat(fullPath),
-          keepalive: keepalive
+          keepAlive: keepalive
         }
       }
 

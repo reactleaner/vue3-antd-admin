@@ -14,12 +14,19 @@ export interface RequestOptions {
   successMsg?: string
   /** 请求失败是提示信息 */
   errorMsg?: string
+  /** 是否mock数据请求 */
+  isMock?: boolean
 }
 
 const UNKNOWN_ERROR = '未知错误，请重试'
 
+/** 真实请求的路径前缀 */
+const baseApiUrl = process.env.VUE_APP_BASE_API
+/** mock请求路径前缀 */
+const baseMockUrl = process.env.VUE_APP_MOCK_API
+
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  // baseURL: baseApiUrl,
   timeout: 6000
 })
 
@@ -98,11 +105,12 @@ export const request = async <T = any>(
   options: RequestOptions = {}
 ): Promise<T> => {
   try {
-    const { successMsg, errorMsg, permCode, isGetDataDirectly = true } = options
+    const { successMsg, errorMsg, permCode, isMock, isGetDataDirectly = true } = options
     // 如果当前是需要鉴权的接口 并且没有权限的话 则终止请求发起
     if (permCode && !useUserStore().perms.includes(permCode)) {
       return $message.error('你没有访问该接口的权限，请联系管理员！')
     }
+    config.url = `${(isMock ? baseMockUrl : baseApiUrl) + config.url}`.replace(/\/{2,}/g, '/')
     const res = await service.request(config)
     successMsg && $message.success(successMsg)
     errorMsg && $message.error(errorMsg)

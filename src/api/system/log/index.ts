@@ -1,12 +1,18 @@
-import { request } from '@/utils/request'
+import { request, BaseResponse } from '@/utils/request'
 import LogApi from '@/core/permission/modules/sys/log'
 
 export function getReqLogList(query: API.PageParams) {
-  return request<API.TableListResult<API.ReqLogListResult>>({
-    url: LogApi.req,
-    method: 'get',
-    params: query
-  })
+  return request<BaseResponse<API.TableListResult>>(
+    {
+      url: LogApi.req,
+      method: 'get',
+      params: query
+    },
+    {
+      isMock: true,
+      isGetDataDirectly: false
+    }
+  )
 }
 
 export function getLoginLogList(query: API.PageParams) {

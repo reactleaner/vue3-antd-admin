@@ -1,4 +1,4 @@
-export const getFormSchema = (dynamicForm): FormSchema => ({
+export const getFormSchema = (dynamicForm) => ({
   formItemLayout: {
     labelCol: { span: 4 },
     wrapperCol: { span: 14 }

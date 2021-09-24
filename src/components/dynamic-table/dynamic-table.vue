@@ -25,9 +25,14 @@
       :key="slotItem.dataIndex || slotItem.slots?.customRender"
       #[slotItem.slots.customRender]="slotProps"
     >
+      <!-- 自定义渲染函数 start -->
+      <template v-if="slotItem.slots?.render && isFunction(slotItem.slots.render)">
+        <component :is="slotItem.slots.render(slotProps.record)" />
+      </template>
+      <!-- 自定义渲染函数 end -->
       <!--        自定义渲染start-->
       <slot
-        v-if="slotItem.slots?.customRender && $slots[slotItem.slots?.customRender]"
+        v-else-if="slotItem.slots?.customRender && $slots[slotItem.slots?.customRender]"
         :name="slotItem.slots?.customRender"
         v-bind="slotProps"
       ></slot>
@@ -35,25 +40,6 @@
 
       <!--     非自定义渲染start -->
       <template v-else>
-        <!--        非操作 start-->
-        <template v-if="slotItem.slots?.customRender !== 'action'">
-          <!--        使用自定义组件格式化显示start-->
-          <template v-if="slotItem.slotsType == 'component'">
-            <component :is="slotItem?.slotsFunc?.(slotProps.record)" />
-          </template>
-          <!--        使用自定义组件格式化显示end-->
-          <!--        使用自定义函数格式化显示-->
-          <template v-if="slotItem.slotsType == 'format'">
-            {{
-              slotItem?.slotsFunc?.(
-                slotProps.record[slotItem.dataIndex ?? slotItem.key],
-                slotProps.record
-              )
-            }}
-          </template>
-        </template>
-        <!--      非操作 end-->
-
         <!--        操作start-->
         <div
           v-if="slotItem.slots?.customRender == 'action'"
@@ -106,6 +92,8 @@ import { Card, Select, Table, Popconfirm } from 'ant-design-vue'
 import { TableProps } from 'ant-design-vue/lib/table/interface'
 import { usePagination, PageOption } from '@/hooks/usePagination'
 import { useDragRow, useDragCol, useCalculate } from './hooks'
+import type { LoadDataParams, TableColumn } from './typing'
+import { isFunction } from '@/utils/is'
 
 export default defineComponent({
   name: 'DynamicTable',
@@ -125,16 +113,19 @@ export default defineComponent({
       type: Object as PropType<TableColumn[]>,
       required: true
     },
-    getListFunc: {
+    loadData: {
       // 获取列表数据函数API
-      type: Function
+      type: Function as PropType<
+        (params?: LoadDataParams, flush?: boolean) => Promise<API.TableListResult>
+      >
     },
     rowSelection: {
       type: Object
     },
     rowKey: {
       // 表格唯一字段
-      type: [String, Function] as PropType<string | ((record: any) => string)>
+      type: [String, Function] as PropType<string | ((record: any) => string)>,
+      default: 'id'
     },
     pageOption: {
       // 分页参数
@@ -202,28 +193,27 @@ export default defineComponent({
      * @param {boolean} flush 是否将页数重置到第一页
      * @description 获取表格数据
      */
-    const refreshTableData = async (params = {}, flush = false) => {
+    const reloadTableData = async (params = {}, flush = false) => {
       // 如果用户没有提供dataSource并且getListFunc是一个函数，那就进行接口请求
       if (
         Object.is(props.dataSource, undefined) &&
-        Object.prototype.toString.call(props.getListFunc).includes('Function')
+        Object.prototype.toString.call(props.loadData).includes('Function')
       ) {
         const queryParams = {
-          pageNumber: flush ? 1 : pageOptions.value.current,
-          pageSize: pageOptions.value.pageSize,
+          page: flush ? 1 : pageOptions.value.current,
+          limit: pageOptions.value.pageSize,
           ...props.pageOption,
           ...params
         }
         state.loading = true
-        const { data, pageNumber, pageSize, total } = await props
-          ?.getListFunc?.(queryParams)
-          .finally(() => (state.loading = false))
-        Object.assign(pageOptions.value, {
-          current: ~~pageNumber,
-          pageSize: ~~pageSize,
-          total: ~~total
-        })
-        state.tableData = data
+        const data = await props?.loadData?.(queryParams).finally(() => (state.loading = false))
+        data?.pagination &&
+          Object.assign(pageOptions.value, {
+            current: ~~data?.pagination.page,
+            pageSize: ~~data?.pagination.size,
+            total: ~~data?.pagination.total
+          })
+        state.tableData = data?.list
       }
 
       // const end = Math.max(pageSize, current * pageSize)
@@ -250,13 +240,13 @@ export default defineComponent({
       props.dragRowEnable && (state.customRow = useDragRow<any>(state.tableData)!)
     }
 
-    refreshTableData()
+    reloadTableData()
 
     // 操作事件
     const actionEvent = async (record, func, actionType = '') => {
       try {
-        // 将refreshTableData放入宏任务中,等待当前微任务拿到结果进行判断操作，再请求表格数据
-        await func({ record, props }, () => setTimeout(refreshTableData))
+        // 将reloadTableData放入宏任务中,等待当前微任务拿到结果进行判断操作，再请求表格数据
+        await func({ record, props }, () => setTimeout(reloadTableData))
         // 如果为删除操作,并且删除成功，当前的表格数据条数小于2条,则当前页数减一,即请求前一页
         if (actionType == 'del' && state.tableData.length < 2) {
           pageOptions.value.current = Math.max(1, pageOptions.value.current - 1)
@@ -281,7 +271,7 @@ export default defineComponent({
         ...pageOptions.value,
         ...pagination
       }
-      refreshTableData({
+      reloadTableData({
         pageSize: pagination.pageSize,
         pageNumber: pagination.current,
         ...props.pageOption,
@@ -304,8 +294,9 @@ export default defineComponent({
       tableRef,
       pageOptions,
       buttonProps,
+      isFunction,
       actionEvent,
-      refreshTableData,
+      reloadTableData,
       paginationChange
     }
   }

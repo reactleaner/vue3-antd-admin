@@ -5,9 +5,7 @@
         <component :is="Component" />
       </Suspense>
     </router-view>
-    <transition name="slide-up">
-      <lock-screen />
-    </transition>
+    <LockScreen />
   </config-provider>
 </template>
 
@@ -21,15 +19,5 @@ import { LockScreen } from '@/components/lockscreen'
 <style lang="less">
 @import '~@/styles/global.less';
 @import '~@/styles/common.less';
-@import '~@/styles/override.less';
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: transform 0.35s ease-in;
-}
-
-.slide-up-enter-form,
-.slide-up-leave-to {
-  transform: translateY(-100%);
-}
+@import '~@/styles/antdv.override.less';
 </style>

@@ -20,7 +20,7 @@ export default defineComponent({
     const error = ref<any>(null)
     onErrorCaptured((e) => {
       // error.value = '(⊙o⊙)…出了点问题。'
-      console.log(e)
+      console.error(e)
       return true
     })
     return { error }

@@ -3,14 +3,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router, { setupRouter } from './router'
 import { setupStore } from '@/store'
-import useFormModal from '@/hooks/useFormModal'
-import useCreateModal from '@/hooks/useCreateModal'
+// import useFormModal from '@/hooks/useFormModal'
+import useModal from '@/hooks/useModal/index'
 import { setupAntd, setupDirectives, setupGlobalMethods, setupCustomComponents } from '@/plugins'
 import 'windi.css'
 const app = createApp(App)
 
-app.use(useFormModal)
-app.use(useCreateModal)
+// app.use(useFormModal)
+app.use(useModal)
 
 // 注册全局常用的ant-design-vue组件
 setupAntd(app)

@@ -3,10 +3,11 @@ const { param2Obj } = require('./utils')
 
 const user = require('./user')
 const role = require('./role')
+const log = require('./log')
 const article = require('./article')
 const search = require('./remote-search')
 
-const mocks = [...user, ...role, ...article, ...search]
+const mocks = [...user, ...role, ...log, ...article, ...search]
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,

@@ -78,7 +78,7 @@ export const useCalculate = () => {
         const colEls =
           tableRef.value.$el.querySelector('.ant-table-tbody')?.firstElementChild?.children
         colEls && renderCol([...colEls] as HTMLTableCellElement[])
-      }, 500)
+      }, 100)
     }
   }
 

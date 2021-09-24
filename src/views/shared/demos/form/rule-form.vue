@@ -34,7 +34,7 @@ export default defineComponent({
 
     // 点击提交
     const confirm = () => {
-      dynamicForm.value?.validate().then(() => message.success('验证通过！'))
+      // dynamicForm.value?.validate().then(() => message.success('验证通过！'))
     }
 
     return {

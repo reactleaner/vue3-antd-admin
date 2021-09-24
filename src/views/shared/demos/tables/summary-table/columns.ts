@@ -1,3 +1,5 @@
+import type { TableColumn } from '@/components/dynamic-table'
+
 export const columns: TableColumn[] = [
   {
     title: '卡类',

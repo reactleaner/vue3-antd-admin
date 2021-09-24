@@ -10,7 +10,7 @@ function registerRoutes(app) {
   let mockLastIndex
   const { mocks } = require('./index.js')
   const mocksForServer = mocks.map((route) => {
-    return responseFake(route.url, route.type, route.response)
+    return responseFake(route)
   })
   // console.log('mocksForServer', mocksForServer)
   for (const mock of mocksForServer) {
@@ -37,13 +37,16 @@ function unregisterRoutes() {
 }
 
 // for mock server
-const responseFake = (url, type, respond) => {
+const responseFake = ({ url, type, response, timeout = 100 }) => {
   return {
-    url: new RegExp(`${process.env.VUE_APP_MOCK_API}${url}`),
+    url: new RegExp(`${process.env.VUE_APP_MOCK_API}${url}`.replace(/\/{2,}/g, '/')),
     type: type || 'get',
     response(req, res) {
       console.log('request invoke:' + req.path)
-      res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+      setTimeout(
+        () => res.json(Mock.mock(response instanceof Function ? response(req, res) : response)),
+        timeout
+      )
     }
   }
 }

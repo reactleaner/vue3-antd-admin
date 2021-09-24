@@ -63,6 +63,7 @@ watch(
 
 // 点击菜单
 const clickMenuItem = ({ item, key, keyPath }) => {
+  if (key === currentRoute.name) return
   if (/http(s)?:/.test(key)) {
     window.open(key)
   } else {

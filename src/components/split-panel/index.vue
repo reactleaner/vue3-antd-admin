@@ -12,51 +12,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
 import { throttle } from 'lodash'
 
-export default defineComponent({
-  name: 'SplitPanel',
-  setup() {
-    const scalable = ref<any>(null)
+const scalable = ref<HTMLDivElement>()
 
-    let startX: number
-    let startWidth: number
+let startX: number
+let startWidth: number
 
-    // 拖拽中
-    // @throttle(20)
-    const onDrag = throttle(function (e: MouseEvent) {
-      scalable.value && (scalable.value.style.width = startWidth + e.clientX - startX + 'px')
-    }, 20)
+// 拖拽中
+// @throttle(20)
+const onDrag = throttle(function (e: MouseEvent) {
+  scalable.value && (scalable.value.style.width = startWidth + e.clientX - startX + 'px')
+}, 20)
 
-    // 拖拽结束
-    const dragEnd = () => {
-      document.documentElement.style.userSelect = 'unset'
-      document.documentElement.removeEventListener('mousemove', onDrag)
-      document.documentElement.removeEventListener('mouseup', dragEnd)
-    }
+// 拖拽结束
+const dragEnd = () => {
+  document.documentElement.style.userSelect = 'unset'
+  document.documentElement.removeEventListener('mousemove', onDrag)
+  document.documentElement.removeEventListener('mouseup', dragEnd)
+}
 
-    // 鼠标按下
-    const startDrag = (e: MouseEvent) => {
-      startX = e.clientX
-      scalable.value && (startWidth = parseInt(window.getComputedStyle(scalable.value).width, 10))
+// 鼠标按下
+const startDrag = (e: MouseEvent) => {
+  startX = e.clientX
+  scalable.value && (startWidth = parseInt(window.getComputedStyle(scalable.value).width, 10))
 
-      document.documentElement.style.userSelect = 'none'
-      document.documentElement.addEventListener('mousemove', onDrag)
-      document.documentElement.addEventListener('mouseup', dragEnd)
-    }
-
-    return {
-      startDrag,
-      scalable
-    }
-  }
-})
+  document.documentElement.style.userSelect = 'none'
+  document.documentElement.addEventListener('mousemove', onDrag)
+  document.documentElement.addEventListener('mouseup', dragEnd)
+}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .split-wrapper {
   display: flex;
   width: 100%;
@@ -72,7 +62,7 @@ export default defineComponent({
 
     .left-content {
       height: 100%;
-      padding: 20px;
+      padding-right: 20px;
     }
 
     .separator {
