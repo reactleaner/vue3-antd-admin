@@ -16,7 +16,7 @@ export type Rule = RuleObject & {
 export interface RenderCallbackParams {
   schemaItem: FormItemSchema
   formModel: Recordable
-  model?: any
+  values: Recordable
   field: string
 }
 
@@ -49,6 +49,7 @@ export type RegisterFn = (formInstance: FormActionType) => void
 
 export type UseFormReturnType = [RegisterFn, FormActionType]
 
+/** 表单 */
 export interface FormSchema {
   layout?: 'vertical' | 'inline' | 'horizontal'
   // Form value
@@ -122,7 +123,7 @@ export interface FormSchema {
   transformDateFunc?: (date: any) => string
   colon?: boolean
 }
-
+/** 表单项 */
 export interface FormItemSchema {
   // Field name
   field: string

@@ -5,9 +5,6 @@ export const schemas: FormItemSchema[] = [
     field: 'field1',
     component: 'Input',
     label: '字段1',
-    colProps: {
-      span: 8
-    },
     componentProps: {
       placeholder: '自定义placeholder',
       onChange: (e: any) => {
@@ -18,34 +15,22 @@ export const schemas: FormItemSchema[] = [
   {
     field: 'field2',
     component: 'Input',
-    label: '字段2',
-    colProps: {
-      span: 8
-    }
+    label: '字段2'
   },
   {
     field: 'field3',
     component: 'DatePicker',
-    label: '字段3',
-    colProps: {
-      span: 8
-    }
+    label: '字段3'
   },
   {
     field: 'fieldTime',
     component: 'RangePicker',
-    label: '时间字段',
-    colProps: {
-      span: 8
-    }
+    label: '时间字段'
   },
   {
     field: 'field4',
     component: 'Select',
     label: '字段4',
-    colProps: {
-      span: 8
-    },
     componentProps: {
       options: [
         {
@@ -65,9 +50,6 @@ export const schemas: FormItemSchema[] = [
     field: 'field5',
     component: 'CheckboxGroup',
     label: '字段5',
-    colProps: {
-      span: 8
-    },
     componentProps: {
       options: [
         {
@@ -85,9 +67,6 @@ export const schemas: FormItemSchema[] = [
     field: 'field7',
     component: 'RadioGroup',
     label: '字段7',
-    colProps: {
-      span: 8
-    },
     componentProps: {
       options: [
         {

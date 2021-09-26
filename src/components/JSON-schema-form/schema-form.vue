@@ -4,6 +4,7 @@
       <template v-for="(schemaItem, index) in formSchema.schemas" :key="schemaItem.field">
         <SchemaFormItem
           :schema-item="schemaItem"
+          :schema="formSchema"
           :set-form-model="setFormModel"
           :form-model="formModel"
         />
@@ -27,7 +28,7 @@ export default defineComponent({
 <script setup lang="ts">
 import { reactive, ref, PropType, unref, useAttrs, nextTick, computed } from 'vue'
 import { Form, Row } from 'ant-design-vue'
-import { isString, isFunction } from '@/utils/is'
+import { isString, isFunction, isNullOrUnDef } from '@/utils/is'
 import SchemaFormItem from './schema-form-item.vue'
 import type { FormItemSchema, FormSchema, FormActionType } from './types/form'
 import { NamePath } from 'ant-design-vue/lib/form/interface'
@@ -62,6 +63,14 @@ const getFormProps = computed<Recordable>(() => ({
   ...props,
   ...schemaFormPropsRef.value
 }))
+
+// 初始化数据
+props.formSchema.schemas?.forEach((item) => {
+  const { defaultValue } = item
+  if (!isNullOrUnDef(defaultValue)) {
+    formModel[item.field] = defaultValue
+  }
+})
 
 // 设置表单属性
 const setFormProps = (formProps: Partial<FormSchema>) => {

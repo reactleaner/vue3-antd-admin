@@ -95,11 +95,11 @@ const openDeptModal = () => {
       }
     },
     formSchema: {
-      labelWidth: 120,
+      labelWidth: 100,
       layout: 'vertical',
       schemas,
       actionColOptions: {
-        span: 24
+        span: 23
       },
       fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']]
     }

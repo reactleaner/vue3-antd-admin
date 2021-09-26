@@ -4,7 +4,7 @@ import type { FormItemSchema, FormSchema } from '../types/form'
 import { computed, unref } from 'vue'
 import { isNumber } from '@/utils/is'
 
-export function useItemLabelWidth(schemaItemRef: Ref<FormItemSchema>, propsRef: Ref<FormSchema>) {
+export function useItemLabelWidth(schemaItemRef: Ref<FormItemSchema>, schemaRef: Ref<FormSchema>) {
   return computed(() => {
     const schemaItem = unref(schemaItemRef)
     const { labelCol = {}, wrapperCol = {} } = schemaItem.formItemProps || {}
@@ -14,9 +14,9 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormItemSchema>, propsRef: 
       labelWidth: globalLabelWidth,
       labelCol: globalLabelCol,
       wrapperCol: globWrapperCol
-    } = unref(propsRef)
+    } = unref(schemaRef)
 
-    // If labelWidth is set globally, all items setting
+    // 如果labelWidth是全局设置的，则会设置所有项
     if ((!globalLabelWidth && !labelWidth && !globalLabelCol) || disabledLabelWidth) {
       labelCol.style = {
         textAlign: 'left'
