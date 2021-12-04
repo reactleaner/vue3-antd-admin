@@ -12,7 +12,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 13
+        consumeTime: 13,
       },
       {
         createTime: '2021-09-20 15:09:20',
@@ -24,7 +24,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 3
+        consumeTime: 3,
       },
       {
         createTime: '2021-09-20 15:09:20',
@@ -36,7 +36,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 16
+        consumeTime: 16,
       },
       {
         createTime: '2021-09-20 15:09:20',
@@ -48,7 +48,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-20 15:09:20',
@@ -60,7 +60,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 21
+        consumeTime: 21,
       },
       {
         createTime: '2021-09-20 15:09:20',
@@ -72,7 +72,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-20 15:09:10',
@@ -84,7 +84,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-20 08:13:26',
@@ -96,7 +96,7 @@ module.exports = {
         action: '/admin/sys/user/page',
         method: 'POST',
         status: 200,
-        consumeTime: 12
+        consumeTime: 12,
       },
       {
         createTime: '2021-09-20 08:13:24',
@@ -108,7 +108,7 @@ module.exports = {
         action: '/admin/sys/user/page',
         method: 'POST',
         status: 200,
-        consumeTime: 8
+        consumeTime: 8,
       },
       {
         createTime: '2021-09-20 08:13:24',
@@ -120,7 +120,7 @@ module.exports = {
         action: '/admin/sys/dept/list',
         method: 'GET',
         status: 200,
-        consumeTime: 3
+        consumeTime: 3,
       },
       {
         createTime: '2021-09-20 08:13:20',
@@ -132,7 +132,7 @@ module.exports = {
         action: '/admin/sys/dept/list',
         method: 'GET',
         status: 200,
-        consumeTime: 5
+        consumeTime: 5,
       },
       {
         createTime: '2021-09-20 08:13:20',
@@ -144,7 +144,7 @@ module.exports = {
         action: '/admin/sys/menu/list',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-20 08:13:19',
@@ -156,7 +156,7 @@ module.exports = {
         action: '/admin/sys/role/list',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-20 08:12:25',
@@ -168,7 +168,7 @@ module.exports = {
         action: '/admin/sys/menu/list',
         method: 'GET',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-20 08:12:25',
@@ -180,7 +180,7 @@ module.exports = {
         action: '/admin/sys/dept/list',
         method: 'GET',
         status: 200,
-        consumeTime: 5
+        consumeTime: 5,
       },
       {
         createTime: '2021-09-20 08:12:23',
@@ -192,7 +192,7 @@ module.exports = {
         action: '/admin/sys/role/list',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-20 08:12:20',
@@ -204,7 +204,7 @@ module.exports = {
         action: '/admin/sys/menu/list',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -216,7 +216,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -228,7 +228,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 5
+        consumeTime: 5,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -240,7 +240,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -252,7 +252,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -264,7 +264,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 1
+        consumeTime: 1,
       },
       {
         createTime: '2021-09-20 08:12:12',
@@ -276,7 +276,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-20 08:12:06',
@@ -288,7 +288,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-20 08:12:05',
@@ -300,7 +300,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 3
+        consumeTime: 3,
       },
       {
         createTime: '2021-09-20 08:12:02',
@@ -312,7 +312,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-20 08:11:59',
@@ -324,7 +324,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-20 08:11:51',
@@ -336,7 +336,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 5
+        consumeTime: 5,
       },
       {
         createTime: '2021-09-20 02:45:12',
@@ -348,7 +348,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-19 08:13:37',
@@ -360,7 +360,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 5
+        consumeTime: 5,
       },
       {
         createTime: '2021-09-18 12:33:17',
@@ -372,7 +372,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 9
+        consumeTime: 9,
       },
       {
         createTime: '2021-09-17 19:48:12',
@@ -384,7 +384,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-17 02:26:14',
@@ -396,7 +396,7 @@ module.exports = {
         action: '/admin/sys/menu/list',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-17 02:26:11',
@@ -408,7 +408,7 @@ module.exports = {
         action: '/admin/sys/role/list',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:26:10',
@@ -420,7 +420,7 @@ module.exports = {
         action: '/admin/sys/menu/list',
         method: 'GET',
         status: 200,
-        consumeTime: 3
+        consumeTime: 3,
       },
       {
         createTime: '2021-09-17 02:26:07',
@@ -432,7 +432,7 @@ module.exports = {
         action: '/admin/sys/user/page',
         method: 'POST',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-17 02:26:07',
@@ -444,7 +444,7 @@ module.exports = {
         action: '/admin/sys/dept/list',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:26:07',
@@ -456,7 +456,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 8
+        consumeTime: 8,
       },
       {
         createTime: '2021-09-17 02:26:07',
@@ -468,7 +468,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -480,7 +480,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -492,7 +492,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -504,7 +504,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 8
+        consumeTime: 8,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -516,7 +516,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -528,7 +528,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 6
+        consumeTime: 6,
       },
       {
         createTime: '2021-09-17 02:25:58',
@@ -540,7 +540,7 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
+        consumeTime: 2,
       },
       {
         createTime: '2021-09-17 02:25:52',
@@ -552,7 +552,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-17 00:56:59',
@@ -564,7 +564,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 3
+        consumeTime: 3,
       },
       {
         createTime: '2021-09-17 00:56:46',
@@ -576,7 +576,7 @@ module.exports = {
         action: '/admin/captcha/img',
         method: 'GET',
         status: 200,
-        consumeTime: 4
+        consumeTime: 4,
       },
       {
         createTime: '2021-09-16 18:05:25',
@@ -588,7 +588,7 @@ module.exports = {
         action: '/admin/account/permmenu',
         method: 'GET',
         status: 200,
-        consumeTime: 7
+        consumeTime: 7,
       },
       {
         createTime: '2021-09-16 18:05:25',
@@ -600,10 +600,10 @@ module.exports = {
         action: '/admin/account/info',
         method: 'GET',
         status: 200,
-        consumeTime: 2
-      }
+        consumeTime: 2,
+      },
     ],
-    pagination: { total: 1488, size: 50, page: 1 }
+    pagination: { total: 1488, size: 50, page: 1 },
   },
-  message: 'success'
-}
+  message: 'success',
+};

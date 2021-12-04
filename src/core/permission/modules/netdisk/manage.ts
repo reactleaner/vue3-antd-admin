@@ -9,5 +9,5 @@ export default {
   info: 'netdisk/manage/info',
   mark: 'netdisk/manage/mark',
   cut: 'netdisk/manage/cut',
-  copy: 'netdisk/manage/copy'
-}
+  copy: 'netdisk/manage/copy',
+};

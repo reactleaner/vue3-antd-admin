@@ -1,3 +1,3 @@
-import RouterTransition from './router-transition.vue'
+import RouterTransition from './router-transition.vue';
 
-export { RouterTransition }
+export { RouterTransition };

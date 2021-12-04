@@ -1,19 +1,18 @@
-import type { RouteRecordRaw } from 'vue-router'
-import { defineStore } from 'pinia'
-import { login } from '@/api/login'
-import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum'
-import { Storage } from '@/utils/Storage'
-import { logout, getInfo, permmenu } from '@/api/account'
-import { generatorDynamicRouter } from '@/router/generator-router'
-import { router } from '@/router'
+import type { RouteRecordRaw } from 'vue-router';
+import { defineStore } from 'pinia';
+import { login } from '@/api/login';
+import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum';
+import { Storage } from '@/utils/Storage';
+import { logout, getInfo, permmenu } from '@/api/account';
+import { generatorDynamicRouter } from '@/router/generator-router';
 
 interface UserState {
-  token: string
-  name: string
-  avatar: string
+  token: string;
+  name: string;
+  avatar: string;
   // like [ 'sys:user:add', 'sys:user:update' ]
-  perms: string[]
-  menus: RouteRecordRaw[]
+  perms: string[];
+  menus: RouteRecordRaw[];
 }
 
 export const useUserStore = defineStore({
@@ -23,56 +22,56 @@ export const useUserStore = defineStore({
     name: 'amdin',
     avatar: '',
     perms: [],
-    menus: []
+    menus: [],
   }),
   getters: {
     getToken(): string {
-      return this.token
+      return this.token;
     },
     getAvatar(): string {
-      return this.avatar
+      return this.avatar;
     },
     getName(): string {
-      return this.name
+      return this.name;
     },
     getPerms(): string[] {
-      return this.perms
-    }
+      return this.perms;
+    },
   },
   actions: {
     // 登录成功保存token
     setToken(token: string) {
-      this.token = token ?? ''
-      const ex = 7 * 24 * 60 * 60 * 1000
-      Storage.set(ACCESS_TOKEN_KEY, this.token, ex)
+      this.token = token ?? '';
+      const ex = 7 * 24 * 60 * 60 * 1000;
+      Storage.set(ACCESS_TOKEN_KEY, this.token, ex);
     },
     // 登录
     async login(params: API.LoginParams) {
       try {
-        const { data } = await login(params)
-        this.setToken(data.token)
-        return this.afterLogin()
+        const { data } = await login(params);
+        this.setToken(data.token);
+        return this.afterLogin();
       } catch (error) {
-        return Promise.reject(error)
+        return Promise.reject(error);
       }
     },
     // 登录成功之后, 获取用户信息以及生成权限路由
     async afterLogin() {
-      const [userInfo, { perms, menus }] = await Promise.all([getInfo(), permmenu()])
-      this.perms = perms
-      this.name = userInfo.name
-      this.avatar = userInfo.headImg
+      const [userInfo, { perms, menus }] = await Promise.all([getInfo(), permmenu()]);
+      this.perms = perms;
+      this.name = userInfo.name;
+      this.avatar = userInfo.headImg;
       // 生成路由
-      const routes = generatorDynamicRouter(menus)
-      this.menus = routes
-      console.log('routes', routes)
+      const routes = generatorDynamicRouter(menus);
+      this.menus = routes;
+      console.log('routes', routes);
       // router.push('/sys/permission/role')
-      return { menus, perms, userInfo }
+      return { menus, perms, userInfo };
     },
     // 登出
     async logout() {
-      await logout()
-      Storage.clear()
-    }
-  }
-})
+      await logout();
+      Storage.clear();
+    },
+  },
+});

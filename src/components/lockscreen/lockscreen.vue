@@ -64,198 +64,198 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
-import { Avatar, message, Modal } from 'ant-design-vue'
-import {
-  LockOutlined,
-  LoadingOutlined,
-  UnlockOutlined,
-  UserOutlined,
-  ApiOutlined,
-  ArrowRightOutlined,
-  WifiOutlined
-} from '@ant-design/icons-vue'
+  import { reactive } from 'vue';
+  import { Avatar, message } from 'ant-design-vue';
+  import {
+    LockOutlined,
+    LoadingOutlined,
+    UnlockOutlined,
+    UserOutlined,
+    ApiOutlined,
+    ArrowRightOutlined,
+    WifiOutlined,
+  } from '@ant-design/icons-vue';
 
-import { useRouter, useRoute } from 'vue-router'
-import { useOnline } from '@/hooks/useOnline'
-import { useTime } from '@/hooks/useTime'
-// import md5 from 'blueimp-md5'
-import HuaweiCharge from './huawei-charge.vue'
-import XiaomiCharge from './xiaomi-charge.vue'
-import { useBattery } from '@/hooks/useBattery'
-import { useLockscreenStore } from '@/store/modules/lockscreen'
-import { useUserStore } from '@/store/modules/user'
+  import { useRouter, useRoute } from 'vue-router';
+  import { useOnline } from '@/hooks/useOnline';
+  import { useTime } from '@/hooks/useTime';
+  // import md5 from 'blueimp-md5'
+  import HuaweiCharge from './huawei-charge.vue';
+  import XiaomiCharge from './xiaomi-charge.vue';
+  import { useBattery } from '@/hooks/useBattery';
+  import { useLockscreenStore } from '@/store/modules/lockscreen';
+  import { useUserStore } from '@/store/modules/user';
 
-const lockscreenStore = useLockscreenStore()
-const userStore = useUserStore()
-const isLock = computed(() => lockscreenStore.isLock)
-// 获取本地时间
-const { month, day, hour, minute, second, week } = useTime()
-const { online } = useOnline()
+  const lockscreenStore = useLockscreenStore();
+  const userStore = useUserStore();
+  // const isLock = computed(() => lockscreenStore.isLock);
+  // 获取本地时间
+  const { month, day, hour, minute, week } = useTime();
+  const { online } = useOnline();
 
-const router = useRouter()
-const route = useRoute()
+  const router = useRouter();
+  const route = useRoute();
 
-const { battery, batteryStatus, calcDischargingTime } = useBattery()
+  const { battery, batteryStatus, calcDischargingTime } = useBattery();
 
-const randomCompName = Math.random() > 0.48 ? XiaomiCharge : HuaweiCharge
+  const randomCompName = Math.random() > 0.48 ? XiaomiCharge : HuaweiCharge;
 
-const state = reactive({
-  isShowLogin: false,
-  loginLoading: false, // 正在登录
-  loginForm: {
-    username: userStore.name,
-    password: ''
-  }
-})
+  const state = reactive({
+    isShowLogin: false,
+    loginLoading: false, // 正在登录
+    loginForm: {
+      username: userStore.name,
+      password: '',
+    },
+  });
 
-// 解锁登录
-const unLockLogin = (val: boolean) => (state.isShowLogin = val)
+  // 解锁登录
+  const unLockLogin = (val: boolean) => (state.isShowLogin = val);
 
-// 登录
-const onLogin = async () => {
-  if (state.loginForm.password.trim() == '') return message.warn('请填写密码')
-  const params = { ...state.loginForm }
-  state.loginLoading = true
-  // params.password = md5(params.password)
-  const { code, message: msg } = await userStore.login(params).finally(() => {
-    state.loginLoading = false
-    message.destroy()
-  })
-  if (code == 0) {
-    Modal.destroyAll()
-    message.success('登录成功！')
-    unLockLogin(false)
-    lockscreenStore.setLock(false)
-  } else {
-    message.info(msg || '登录失败')
-  }
-  state.loginLoading = false
-}
+  // 登录
+  const onLogin = async () => {
+    if (state.loginForm.password.trim() == '') return message.warn('请填写密码');
+    // const params = { ...state.loginForm };
+    state.loginLoading = true;
+    // params.password = md5(params.password)
+    // const { code, message: msg } = await userStore.login(params).finally(() => {
+    //   state.loginLoading = false;
+    //   message.destroy();
+    // });
+    // if (code == 0) {
+    //   Modal.destroyAll();
+    //   message.success('登录成功！');
+    //   unLockLogin(false);
+    //   lockscreenStore.setLock(false);
+    // } else {
+    //   message.info(msg || '登录失败');
+    // }
+    state.loginLoading = false;
+  };
 
-const nav2login = () => {
-  unLockLogin(false)
-  lockscreenStore.setLock(false)
-  router.replace({
-    path: '/login',
-    query: {
-      redirect: route.fullPath
-    }
-  })
-}
+  const nav2login = () => {
+    unLockLogin(false);
+    lockscreenStore.setLock(false);
+    router.replace({
+      path: '/login',
+      query: {
+        redirect: route.fullPath,
+      },
+    });
+  };
 </script>
 
 <style lang="less" scoped>
-.lockscreen {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  overflow: hidden;
-  color: white;
-  background: #000;
-
-  &.unLockLogin {
-    background-color: rgba(25, 28, 34, 0.78);
-    backdrop-filter: blur(7px);
-  }
-
-  .login-box {
-    position: absolute;
-    top: 45%;
-    left: 50%;
+  .lockscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
     display: flex;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    color: white;
+    background: #000;
 
-    > * {
-      margin-bottom: 14px;
+    &.unLockLogin {
+      background-color: rgba(25, 28, 34, 0.78);
+      backdrop-filter: blur(7px);
     }
 
-    .username {
-      font-size: 30px;
-    }
-  }
-
-  .lock-box {
-    position: absolute;
-    top: 12vh;
-    left: 50%;
-    font-size: 34px;
-    transform: translateX(-50%);
-
-    .tips {
-      color: white;
-      cursor: text;
-    }
-
-    .lock {
+    .login-box {
+      position: absolute;
+      top: 45%;
+      left: 50%;
       display: flex;
+      transform: translate(-50%, -50%);
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
 
-      .lock-icon {
-        cursor: pointer;
+      > * {
+        margin-bottom: 14px;
+      }
 
-        .anticon-unlock {
-          display: none;
+      .username {
+        font-size: 30px;
+      }
+    }
+
+    .lock-box {
+      position: absolute;
+      top: 12vh;
+      left: 50%;
+      font-size: 34px;
+      transform: translateX(-50%);
+
+      .tips {
+        color: white;
+        cursor: text;
+      }
+
+      .lock {
+        display: flex;
+        justify-content: center;
+
+        .lock-icon {
+          cursor: pointer;
+
+          .anticon-unlock {
+            display: none;
+          }
+
+          &:hover .anticon-unlock {
+            display: initial;
+          }
+
+          &:hover .anticon-lock {
+            display: none;
+          }
         }
+      }
+    }
 
-        &:hover .anticon-unlock {
-          display: initial;
-        }
+    .local-time {
+      position: absolute;
+      bottom: 60px;
+      left: 60px;
+      font-family: helvetica;
 
-        &:hover .anticon-lock {
-          display: none;
+      .time {
+        font-size: 70px;
+      }
+
+      .date {
+        font-size: 40px;
+      }
+    }
+
+    .computer-status {
+      position: absolute;
+      right: 60px;
+      bottom: 60px;
+      font-size: 24px;
+
+      > * {
+        margin-left: 14px;
+      }
+
+      .network {
+        position: relative;
+
+        &.offline::before {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 10;
+          width: 2px;
+          height: 28px;
+          background-color: red;
+          content: '';
+          transform: translate(-50%, -50%) rotate(45deg);
         }
       }
     }
   }
-
-  .local-time {
-    position: absolute;
-    bottom: 60px;
-    left: 60px;
-    font-family: helvetica;
-
-    .time {
-      font-size: 70px;
-    }
-
-    .date {
-      font-size: 40px;
-    }
-  }
-
-  .computer-status {
-    position: absolute;
-    right: 60px;
-    bottom: 60px;
-    font-size: 24px;
-
-    > * {
-      margin-left: 14px;
-    }
-
-    .network {
-      position: relative;
-
-      &.offline::before {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
-        width: 2px;
-        height: 28px;
-        background-color: red;
-        content: '';
-        transform: translate(-50%, -50%) rotate(45deg);
-      }
-    }
-  }
-}
 </style>

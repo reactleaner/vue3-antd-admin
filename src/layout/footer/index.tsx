@@ -1,10 +1,10 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue';
 
-import { Layout } from 'ant-design-vue'
-import { GithubOutlined, CopyrightOutlined } from '@ant-design/icons-vue'
-import styles from './index.module.less'
+import { Layout } from 'ant-design-vue';
+import { GithubOutlined, CopyrightOutlined } from '@ant-design/icons-vue';
+import styles from './index.module.less';
 
-const { Footer: ALayoutFooter } = Layout
+const { Footer: ALayoutFooter } = Layout;
 
 export default defineComponent({
   name: 'PageFooter',
@@ -33,6 +33,6 @@ export default defineComponent({
           </div>
         </a-layout-footer>
       </>
-    )
-  }
-})
+    );
+  },
+});

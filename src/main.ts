@@ -1,29 +1,29 @@
 // import './publicPath'
-import { createApp } from 'vue'
-import App from './App.vue'
-import router, { setupRouter } from './router'
-import { setupStore } from '@/store'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router, { setupRouter } from './router';
+import { setupStore } from '@/store';
 // import useFormModal from '@/hooks/useFormModal'
-import useModal from '@/hooks/useModal/index'
-import { setupAntd, setupDirectives, setupGlobalMethods, setupCustomComponents } from '@/plugins'
-import 'windi.css'
-const app = createApp(App)
+import useModal from '@/hooks/useModal/index';
+import { setupAntd, setupDirectives, setupGlobalMethods, setupCustomComponents } from '@/plugins';
+import 'windi.css';
+const app = createApp(App);
 
 // app.use(useFormModal)
-app.use(useModal)
+app.use(useModal);
 
 // 注册全局常用的ant-design-vue组件
-setupAntd(app)
+setupAntd(app);
 // 注册全局自定义组件,如：<svg-icon />
-setupCustomComponents(app)
+setupCustomComponents(app);
 // 注册全局自定义指令，如：v-permission权限指令
-setupDirectives(app)
+setupDirectives(app);
 // 注册全局方法，如：app.config.globalProperties.$message = message
-setupGlobalMethods(app)
+setupGlobalMethods(app);
 // 挂载vuex状态管理
-setupStore(app)
+setupStore(app);
 // 挂载路由
-setupRouter(app)
+setupRouter(app);
 // 路由准备就绪后挂载APP实例
-await router.isReady()
-app.mount('#app')
+await router.isReady();
+app.mount('#app');

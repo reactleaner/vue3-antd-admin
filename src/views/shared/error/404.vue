@@ -10,19 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  name: '404'
-})
+  import { defineComponent } from 'vue';
+  export default defineComponent({
+    name: 'NotFound',
+  });
 </script>
 
 <style lang="less" scoped>
-.page-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  background-color: white;
-  justify-content: center;
-  align-items: center;
-}
+  .page-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+  }
 </style>

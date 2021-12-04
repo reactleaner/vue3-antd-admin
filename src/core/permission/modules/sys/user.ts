@@ -4,5 +4,5 @@ export default {
   info: 'sys/user/info',
   update: 'sys/user/update',
   delete: 'sys/user/delete',
-  password: 'sys/user/password'
-}
+  password: 'sys/user/password',
+};

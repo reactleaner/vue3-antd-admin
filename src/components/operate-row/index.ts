@@ -1,3 +1,3 @@
-import OperateRow from './operate-row.vue'
+import OperateRow from './operate-row.vue';
 
-export { OperateRow }
+export { OperateRow };

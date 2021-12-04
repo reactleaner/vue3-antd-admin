@@ -1,5 +1,5 @@
-import { RouteRecordRaw } from 'vue-router'
-import { RouterTransition } from '@/components/transition'
+import { RouteRecordRaw } from 'vue-router';
+import { RouterTransition } from '@/components/transition';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '重定向',
       icon: 'SettingOutlined',
-      hideMenu: true
+      hideMenu: true,
     },
     children: [
       {
@@ -19,11 +19,11 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '重定向',
           hideMenu: true,
-          keepAlive: false
-        }
-      }
-    ]
-  }
-]
+          keepAlive: false,
+        },
+      },
+    ],
+  },
+];
 
-export default routes
+export default routes;

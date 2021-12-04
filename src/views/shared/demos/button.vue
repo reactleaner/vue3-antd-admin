@@ -19,17 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import { Alert } from 'ant-design-vue'
+  import { Alert } from 'ant-design-vue';
 
-/**
- * @description 扩展ant-design-vue模态框功能
- */
+  /**
+   * @description 扩展ant-design-vue模态框功能
+   */
 </script>
 
 <style lang="less" scoped>
-.btn-rows {
-  button {
-    margin-right: 12px;
+  .btn-rows {
+    button {
+      margin-right: 12px;
+    }
   }
-}
 </style>

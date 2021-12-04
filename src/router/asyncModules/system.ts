@@ -1,4 +1,4 @@
-import { getAsyncPage } from '@/utils/common'
+import { getAsyncPage } from '@/utils/common';
 
 /**
  * system module
@@ -11,5 +11,5 @@ export default {
   'views/system/monitor/online': getAsyncPage('system/monitor/online'),
   'views/system/monitor/login-log': getAsyncPage('system/monitor/login-log'),
   'views/system/schedule/task': getAsyncPage('system/schedule/task'),
-  'views/system/schedule/log': getAsyncPage('system/schedule/log')
-}
+  'views/system/schedule/log': getAsyncPage('system/schedule/log'),
+};

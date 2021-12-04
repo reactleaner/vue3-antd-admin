@@ -7,21 +7,21 @@
  */
 // import type { DataNode } from 'rc-tree-select/lib/interface'
 
-type DataNode = any
+type DataNode = any;
 
 interface Permissions {
   [key: string]: {
-    [key: string]: string
-  }
+    [key: string]: string;
+  };
 }
 
-const modulesPermissionFiles = require.context('./modules', true, /\.ts$/)
+const modulesPermissionFiles = require.context('./modules', true, /\.ts$/);
 /**
  * 根据接口路径生成接口权限码, eg: sys/user/add => sys:user:add
  * @param str 接口路径
  * @returns {string}
  */
-export const generatePermCode = (str: string) => str.replace(/\//g, ':')
+export const generatePermCode = (str: string) => str.replace(/\//g, ':');
 
 /**
  * @description 权限列表
@@ -33,47 +33,47 @@ export const permissions: Permissions = modulesPermissionFiles
     // set './sys/app.js' => 'sysApp'
     const moduleName = modulePath
       .replace(/^\.\/(.*)\.\w+$/, '$1')
-      .replace(/[-_/][a-z]/gi, (s) => s.substring(1).toUpperCase())
-    const value = modulesPermissionFiles(modulePath).default
+      .replace(/[-_/][a-z]/gi, (s) => s.substring(1).toUpperCase());
+    const value = modulesPermissionFiles(modulePath).default;
 
     // pass sys/user/add => sys:user:add
     const permissionModule = Object.keys(value).reduce((obj, key) => {
-      obj[key] = generatePermCode(value[key])
-      return obj
-    }, {})
+      obj[key] = generatePermCode(value[key]);
+      return obj;
+    }, {});
 
-    modules[moduleName] = permissionModule
-    console.log('permissions modules', modules)
-    return modules
-  }, {})
+    modules[moduleName] = permissionModule;
+    console.log('permissions modules', modules);
+    return modules;
+  }, {});
 
 /**
  * @description 将权限列表转成级联选择器要求的数据格式
  */
 export const formarPermsToCascader = () => {
   return Object.keys(permissions).reduce((prev: DataNode[], moduleKey) => {
-    const module = permissions[moduleKey]
+    const module = permissions[moduleKey];
     Object.keys(module).forEach((key) => {
       module[key].split(':').reduce((p: DataNode[], k) => {
-        const index = p.findIndex((item) => item?.value === k)
+        const index = p.findIndex((item) => item?.value === k);
         if (Number.isInteger(index) && index !== -1) {
-          return p[index].children!
+          return p[index].children!;
         } else {
           const item: DataNode = {
             key: k,
             title: k,
             label: k,
             value: k,
-            children: []
-          }
-          p.push(item)
-          return item.children!
+            children: [],
+          };
+          p.push(item);
+          return item.children!;
         }
-      }, prev)
-    })
-    return prev
-  }, [])
-}
+      }, prev);
+    });
+    return prev;
+  }, []);
+};
 
 // 挂载所有权限列表到实例上
 // !Vue.prototype.$permission && (Vue.prototype.$permission = modules)
@@ -94,4 +94,4 @@ export const formarPermsToCascader = () => {
 //     }
 //   }
 // })
-export default permissions
+export default permissions;

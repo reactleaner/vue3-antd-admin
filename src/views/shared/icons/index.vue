@@ -18,56 +18,56 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Card, message } from 'ant-design-vue'
-import { IconFont } from '@/components/iconfont'
-import icons from './icons'
-import { copyText } from '@/utils/common'
+  import { defineComponent } from 'vue';
+  import { Card, message } from 'ant-design-vue';
+  import { IconFont } from '@/components/iconfont';
+  import icons from './icons';
+  import { copyText } from '@/utils/common';
 
-const prefix = process.env.BASE_URL
+  const prefix = process.env.BASE_URL;
 
-export default defineComponent({
-  name: 'Icons',
-  components: { IconFont, [Card.name]: Card, [Card.Grid.name]: Card.Grid },
-  setup() {
-    const copyIcon = async (iconItem) => {
-      await copyText(iconItem.code)
-      message.success(iconItem.code + '--复制成功！')
-    }
+  export default defineComponent({
+    name: 'DemoIcons',
+    components: { IconFont, [Card.name]: Card, [Card.Grid.name]: Card.Grid },
+    setup() {
+      const copyIcon = async (iconItem) => {
+        await copyText(iconItem.code);
+        message.success(iconItem.code + '--复制成功！');
+      };
 
-    return {
-      icons,
-      prefix,
-      copyIcon
-    }
-  }
-})
+      return {
+        icons,
+        prefix,
+        copyIcon,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.icons-box {
-  display: flex;
-  justify-content: center;
+  .icons-box {
+    display: flex;
+    justify-content: center;
 
-  :deep(.ant-card) {
-    max-width: 80vw;
+    :deep(.ant-card) {
+      max-width: 80vw;
 
-    .ant-card-body {
-      display: flex;
-      flex-wrap: wrap;
-
-      .ant-card-grid {
+      .ant-card-body {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 20%;
+        flex-wrap: wrap;
 
-        .anticon {
-          margin-bottom: 14px;
+        .ant-card-grid {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 20%;
+
+          .anticon {
+            margin-bottom: 14px;
+          }
         }
       }
     }
   }
-}
 </style>

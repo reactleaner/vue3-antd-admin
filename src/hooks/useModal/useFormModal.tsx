@@ -1,27 +1,37 @@
-import { useModal } from './index'
-import { SchemaForm, FormSchema, useSchemaForm } from '@/components/JSON-schema-form'
-import type { FormModalProps } from './types'
+import { useModal } from './index';
+import { nextTick } from 'vue';
+import { SchemaForm, FormSchema, useSchemaForm } from '@/components/JSON-schema-form';
+import type { FormModalProps } from './types';
 
 interface ShowModalProps {
-  modalProps: FormModalProps
-  formSchema: FormSchema
+  modalProps: FormModalProps;
+  formSchema: FormSchema;
 }
 
 export const useFormModal = () => {
-  const { show } = useModal()
+  const { show } = useModal();
 
-  const showModal = ({ modalProps, formSchema }: ShowModalProps) => {
-    const [formRef] = useSchemaForm()
+  const showModal = async ({ modalProps, formSchema }: ShowModalProps) => {
+    const [formRef] = useSchemaForm();
 
-    show({
+    await show({
       ...modalProps,
       content: () => <SchemaForm ref={formRef} formSchema={formSchema}></SchemaForm>,
       onOk: async () => {
-        await formRef.value?.validate()
-        modalProps?.onFinish?.(formRef.value?.formModel || {})
-      }
-    })
-  }
+        try {
+          await formRef.value?.validate();
+          modalProps?.onFinish?.(formRef.value?.formModel || {});
+        } catch (error) {
+          modalProps?.onFail?.(formRef.value?.formModel || {});
+          return Promise.reject(error);
+        }
+      },
+    });
 
-  return [showModal]
-}
+    await nextTick();
+
+    return formRef;
+  };
+
+  return [showModal] as const;
+};

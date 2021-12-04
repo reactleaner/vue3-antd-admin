@@ -42,42 +42,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-import { Alert } from 'ant-design-vue'
-import { IconFont } from '@/components/iconfont'
-import PreviewModal from '@/components/preview-modal.vue'
+  import { defineComponent, reactive, toRefs } from 'vue';
+  import { Alert } from 'ant-design-vue';
+  import { IconFont } from '@/components/iconfont';
+  import PreviewModal from '@/components/preview-modal.vue';
 
-/**
- * @description ant-design-vue配置阿里巴巴矢量图标库使用
- */
-export default defineComponent({
-  name: 'CustomModal',
-  components: { [Alert.name]: Alert, IconFont, PreviewModal },
-  setup() {
-    const state = reactive({
-      scriptUrl: '',
-      iconName: '',
-      visible: false,
-      imageUrl: ''
-    })
+  /**
+   * @description ant-design-vue配置阿里巴巴矢量图标库使用
+   */
+  export default defineComponent({
+    name: 'CustomModal',
+    components: { [Alert.name]: Alert, IconFont, PreviewModal },
+    setup() {
+      const state = reactive({
+        scriptUrl: '',
+        iconName: '',
+        visible: false,
+        imageUrl: '',
+      });
 
-    const showPreview = (e) => {
-      state.imageUrl = e.target.currentSrc
-      state.visible = true
-    }
+      const showPreview = (e) => {
+        state.imageUrl = e.target.currentSrc;
+        state.visible = true;
+      };
 
-    return {
-      ...toRefs(state),
-      showPreview
-    }
-  }
-})
+      return {
+        ...toRefs(state),
+        showPreview,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.image-demo {
-  width: 600px;
-  height: 400px;
-  margin-bottom: 12px;
-}
+  .image-demo {
+    width: 600px;
+    height: 400px;
+    margin-bottom: 12px;
+  }
 </style>

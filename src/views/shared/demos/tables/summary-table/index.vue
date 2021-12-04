@@ -34,47 +34,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Alert, Card } from 'ant-design-vue'
-import { DynamicTable } from '@/components/dynamic-table'
-import { AButton } from '@/components/button/'
-import mockData from './mockData.json'
-import { columns } from './columns'
+  import { defineComponent } from 'vue';
+  import { Alert, Card } from 'ant-design-vue';
+  import { DynamicTable } from '@/components/dynamic-table';
+  import mockData from './mockData.json';
+  import { columns } from './columns';
 
-/**
- * @description 合计表格功能
- */
-export default defineComponent({
-  name: 'CustomModal',
-  components: { [Alert.name]: Alert, [Card.name]: Card, AButton, DynamicTable },
-  setup() {
-    /**
-     * 自定义合计的计算规则
-     */
-    const summaryFunc = ({ dataSource = [], columns = [] }): string[] => {
-      const keys = Object.keys(dataSource[0])
-      const sums = keys.reduce((prev, key) => {
-        const count = dataSource.map((n) => n[key]).reduce((p, c) => c + p, 0)
-        prev[key] = isNaN(Number(count)) ? '' : `${count}元`
-        return prev
-      }, {})
-      return columns.reduce((prev, curr: any, index) => {
-        if (index === 0) {
-          prev.push('总价')
-        } else {
-          prev.push(sums[curr.dataIndex])
-        }
-        return prev
-      }, [] as string[])
-    }
+  /**
+   * @description 合计表格功能
+   */
+  export default defineComponent({
+    name: 'CustomModal',
+    components: { [Alert.name]: Alert, [Card.name]: Card, DynamicTable },
+    setup() {
+      /**
+       * 自定义合计的计算规则
+       */
+      const summaryFunc = ({ dataSource = [], columns = [] }): string[] => {
+        const keys = Object.keys(dataSource[0]);
+        const sums = keys.reduce((prev, key) => {
+          const count = dataSource.map((n) => n[key]).reduce((p, c) => c + p, 0);
+          prev[key] = isNaN(Number(count)) ? '' : `${count}元`;
+          return prev;
+        }, {});
+        return columns.reduce((prev, curr: any, index) => {
+          if (index === 0) {
+            prev.push('总价');
+          } else {
+            prev.push(sums[curr.dataIndex]);
+          }
+          return prev;
+        }, [] as string[]);
+      };
 
-    return {
-      summaryFunc,
-      dataSource: mockData,
-      columns: columns.map((n) => ({ width: 120, ...n }))
-    }
-  }
-})
+      return {
+        summaryFunc,
+        dataSource: mockData,
+        columns: columns.map((n) => ({ width: 120, ...n })),
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped></style>

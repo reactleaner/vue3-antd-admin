@@ -31,51 +31,51 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import { Layout } from 'ant-design-vue'
-import Logo from './logo/index.vue'
-import { TabsView } from './tabs'
-import AsideMenu from './menu/menu.vue'
-import PageHeader from './header/index.vue'
-import PageFooter from './footer'
+  import { defineComponent, ref, computed } from 'vue';
+  import { Layout } from 'ant-design-vue';
+  import Logo from './logo/index.vue';
+  import { TabsView } from './tabs';
+  import AsideMenu from './menu/menu.vue';
+  import PageHeader from './header/index.vue';
+  import PageFooter from './footer';
 
-export default defineComponent({
-  name: 'Layout',
-  components: {
-    TabsView,
-    PageHeader,
-    AsideMenu,
-    Logo,
-    PageFooter,
-    [Layout.name]: Layout,
-    [Layout.Content.name]: Layout.Content,
-    [Layout.Sider.name]: Layout.Sider
-  },
-  setup() {
-    const collapsed = ref<boolean>(false)
-    // 自定义侧边栏菜单收缩和展开时的宽度
-    const asiderWidth = computed(() => (collapsed.value ? 80 : 208))
+  export default defineComponent({
+    name: 'LayoutComp',
+    components: {
+      TabsView,
+      PageHeader,
+      AsideMenu,
+      Logo,
+      PageFooter,
+      [Layout.name]: Layout,
+      [Layout.Content.name]: Layout.Content,
+      [Layout.Sider.name]: Layout.Sider,
+    },
+    setup() {
+      const collapsed = ref<boolean>(false);
+      // 自定义侧边栏菜单收缩和展开时的宽度
+      const asiderWidth = computed(() => (collapsed.value ? 80 : 208));
 
-    return {
-      collapsed,
-      asiderWidth
-    }
-  }
-})
+      return {
+        collapsed,
+        asiderWidth,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.layout {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-
-  .ant-layout {
+  .layout {
+    display: flex;
+    height: 100vh;
     overflow: hidden;
-  }
 
-  .layout-content {
-    flex: none;
+    .ant-layout {
+      overflow: hidden;
+    }
+
+    .layout-content {
+      flex: none;
+    }
   }
-}
 </style>

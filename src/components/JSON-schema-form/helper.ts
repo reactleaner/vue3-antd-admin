@@ -1,64 +1,64 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form'
-import type { ComponentMapType } from './types/index'
-import { isNumber, isObject } from '@/utils/is'
-import dayjs from 'dayjs'
+import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { ComponentMapType } from './types/index';
+import { isNumber } from '@/utils/is';
+import dayjs from 'dayjs';
 
 /**
  * @description: 生成placeholder
  */
 export function createPlaceholderMessage(component: ComponentMapType) {
   if (component.includes('Input') || component.includes('Complete')) {
-    return '请输入'
+    return '请输入';
   }
-  const chooseTypes: ComponentMapType[] = ['Select', 'Cascader', 'Checkbox', 'Switch']
+  const chooseTypes: ComponentMapType[] = ['Select', 'Cascader', 'Checkbox', 'Switch'];
   if (component.includes('Picker')) {
-    return '请选择'
+    return '请选择';
   }
   if (chooseTypes.includes(component)) {
     // return `请选择${label}`;
-    return '请选择'
+    return '请选择';
   }
-  return ''
+  return '';
 }
 
-const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker']
+const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
 
 function genType() {
-  return [...DATE_TYPE, 'RangePicker']
+  return [...DATE_TYPE, 'RangePicker'];
 }
 
 export function setComponentRuleType(
   rule: ValidationRule,
   component: ComponentMapType,
-  valueFormat: string
+  valueFormat: string,
 ) {
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
-    rule.type = valueFormat ? 'string' : 'object'
+    rule.type = valueFormat ? 'string' : 'object';
   } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {
-    rule.type = 'array'
+    rule.type = 'array';
   } else if (['InputNumber'].includes(component)) {
-    rule.type = 'number'
+    rule.type = 'number';
   }
 }
 
 export function processDateValue(attr: Recordable, component: string) {
-  const { valueFormat, value } = attr
+  const { valueFormat, value } = attr;
   if (valueFormat) {
     // attr.value = isObject(value) ? dayjs(value).format(valueFormat) : value
   } else if (DATE_TYPE.includes(component) && value) {
-    attr.value = dayjs(attr.value)
+    attr.value = dayjs(attr.value);
   }
 }
 
 export function handleInputNumberValue(component?: ComponentMapType, val?: any) {
-  if (!component) return val
+  if (!component) return val;
   if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
-    return val && isNumber(val) ? `${val}` : val
+    return val && isNumber(val) ? `${val}` : val;
   }
-  return val
+  return val;
 }
 
 /**
  * 时间字段
  */
-export const dateItemType = genType()
+export const dateItemType = genType();

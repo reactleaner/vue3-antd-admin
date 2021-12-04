@@ -1,4 +1,4 @@
-import { Layout, Avatar, Menu, Dropdown, Breadcrumb, Tooltip } from 'ant-design-vue'
+import { Layout, Avatar, Menu, Dropdown, Breadcrumb, Tooltip } from 'ant-design-vue';
 
 import {
   SettingOutlined,
@@ -9,8 +9,8 @@ import {
   FullscreenExitOutlined,
   PoweroffOutlined,
   GithubOutlined,
-  LockOutlined
-} from '@ant-design/icons-vue'
+  LockOutlined,
+} from '@ant-design/icons-vue';
 
 export default {
   [Layout.Header.name]: Layout.Header,
@@ -29,5 +29,5 @@ export default {
   MenuUnfoldOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
-  PoweroffOutlined
-}
+  PoweroffOutlined,
+};

@@ -40,121 +40,158 @@
 </template>
 
 <script lang="tsx">
-export default { name: 'SystemUser' }
+  export default { name: 'SystemUser' };
 </script>
 
 <script setup lang="tsx">
-import type { TreeDataItem } from 'ant-design-vue/lib/tree/Tree'
-import { ref, reactive, onMounted } from 'vue'
-import { Tree, Dropdown, Space, Tooltip } from 'ant-design-vue'
-import { SyncOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import { SplitPanel } from '@/components/split-panel'
-import { DynamicTable, LoadDataParams, DynamicTableInstance } from '@/components/dynamic-table'
-import { getColumns } from './columns'
-import { deleteUsers, getUserListPage } from '@/api/system/user'
-import { getDeptList, deleteDept } from '@/api/system/dept'
-import { useFormModal } from '@/hooks/useModal/index'
-import { schemas } from './formSchemas'
+  import type { TreeDataItem } from 'ant-design-vue/lib/tree/Tree';
+  import { ref, reactive, onMounted } from 'vue';
+  import { Tree, Dropdown, Space, Tooltip } from 'ant-design-vue';
+  import { SyncOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { SplitPanel } from '@/components/split-panel';
+  import { DynamicTable, LoadDataParams, DynamicTableInstance } from '@/components/dynamic-table';
+  import { getColumns } from './columns';
+  import { deleteUsers, getUserListPage } from '@/api/system/user';
+  import { getDeptList } from '@/api/system/dept';
+  import { useFormModal } from '@/hooks/useModal/index';
+  import { schemas } from './formSchemas';
 
-interface State {
-  expandedKeys: number[]
-  departmentIds: number[]
-  deptTree: TreeDataItem[]
-}
+  interface State {
+    expandedKeys: number[];
+    departmentIds: number[];
+    deptTree: TreeDataItem[];
+  }
 
-const list2tree = (
-  depts: API.SysDeptListResult[],
-  parentId: null | number = null
-): TreeDataItem[] => {
-  return depts
-    .filter((item) => item.parentId === parentId)
-    .map((item) => ({
-      title: item.name,
-      key: item.id,
-      children: list2tree(depts, item.id)
-    }))
-}
+  const list2tree = (
+    depts: API.SysDeptListResult[],
+    parentId: null | number = null,
+  ): TreeDataItem[] => {
+    return depts
+      .filter((item) => item.parentId === parentId)
+      .map((item) => ({
+        title: item.name,
+        key: item.id,
+        children: list2tree(depts, item.id),
+      }));
+  };
 
-const [showModal] = useFormModal()
+  const [showModal] = useFormModal();
 
-const dynamicTableRef = ref<DynamicTableInstance>()
+  const dynamicTableRef = ref<DynamicTableInstance>();
 
-const state = reactive<State>({
-  expandedKeys: [],
-  departmentIds: [],
-  deptTree: []
-})
-
-const openDeptModal = () => {
-  showModal({
-    modalProps: {
-      title: '表单模态框',
-      onFinish: async (values) => {
-        console.log('表单模态框', values)
-        return true
-      }
-    },
-    formSchema: {
-      labelWidth: 100,
-      layout: 'vertical',
-      schemas,
-      actionColOptions: {
-        span: 23
+  const state = reactive<State>({
+    expandedKeys: [],
+    departmentIds: [],
+    deptTree: [],
+  });
+  /**
+   * @description 打开部门弹窗
+   */
+  const openDeptModal = () => {
+    showModal({
+      modalProps: {
+        title: '表单模态框',
+        onFinish: async (values) => {
+          console.log('表单模态框', values);
+          return true;
+        },
       },
-      fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']]
-    }
-  })
-}
+      formSchema: {
+        labelWidth: 100,
+        layout: 'vertical',
+        schemas,
+        actionColOptions: {
+          span: 23,
+        },
+        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
+      },
+    });
+  };
+  /**
+   * @description 打开用户弹窗
+   */
+  const openUserModal = async (record: API.UserListPageResultItem) => {
+    const formRef = await showModal({
+      modalProps: {
+        title: '表单模态框',
+        onFinish: async (values) => {
+          console.log('表单模态框', values);
+          return true;
+        },
+        onFail: (val) => {
+          console.log('表单验证失败', val);
+        },
+      },
+      formSchema: {
+        labelWidth: 100,
+        layout: 'vertical',
+        schemas,
+        actionColOptions: {
+          span: 23,
+        },
+        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
+      },
+    });
+    formRef.value?.updateSchema([
+      {
+        field: 'dept',
+        componentProps: { treeData: state.deptTree },
+      },
+    ]);
+    console.log('formRef2', formRef.value);
 
-const delDept = () => {
-  // $modal.show({
-  //   title: '删除',
-  //   content: () => <>删除部门</>
-  // })
-}
+    // formRef.value?.setFieldsValue(record)
+  };
 
-/**
- * 获取部门列表
- */
-const fetchDeptList = async () => {
-  const dept = await getDeptList()
-  state.deptTree = list2tree(dept)
-  state.expandedKeys = [...state.expandedKeys, ...state.deptTree.map((n) => Number(n.key))]
-}
+  const delDept = () => {
+    // $modal.show({
+    //   title: '删除',
+    //   content: () => <>删除部门</>
+    // })
+  };
 
-onMounted(() => {
-  fetchDeptList()
-})
+  /**
+   * 获取部门列表
+   */
+  const fetchDeptList = async () => {
+    const dept = await getDeptList();
+    state.deptTree = list2tree(dept);
+    state.expandedKeys = [...state.expandedKeys, ...state.deptTree.map((n) => Number(n.key))];
+  };
 
-/**
- * @description 表格删除行
- */
-const delRowConfirm = (record: API.UserListPageResultItem | API.UserListPageResultItem[]) => {
-  const userIds = Array.isArray(record) ? record.map((n) => n.id) : [record.id]
-  deleteUsers({ userIds }).finally(dynamicTableRef.value?.reloadTableData)
-}
+  onMounted(() => {
+    fetchDeptList();
+  });
 
-/**
- * 点击部门
- */
-const onTreeSelect = (selectedKeys: number[]) => {
-  state.departmentIds = selectedKeys
-  dynamicTableRef?.value?.reloadTableData?.()
-}
+  /**
+   * @description 表格删除行
+   */
+  const delRowConfirm = (record: API.UserListPageResultItem | API.UserListPageResultItem[]) => {
+    const userIds = Array.isArray(record) ? record.map((n) => n.id) : [record.id];
+    deleteUsers({ userIds }).finally(dynamicTableRef.value?.reloadTableData);
+  };
 
-const columns = getColumns({ delRowConfirm, dynamicTableRef, deptTree: [] })
+  /**
+   * 点击部门
+   */
+  const onTreeSelect = (selectedKeys: number[]) => {
+    state.departmentIds = selectedKeys;
+    dynamicTableRef?.value?.reloadTableData?.();
+  };
 
-const loadTableData = async ({ page, limit }: LoadDataParams) => {
-  const data = await getUserListPage({
-    page,
-    limit,
-    departmentIds: state.departmentIds.length ? state.departmentIds : undefined
-  })
-  return data
-}
+  const columns = getColumns({ delRowConfirm, dynamicTableRef, openUserModal });
 
-const onContextMenuClick = (treeKey: string, menuKey: string) => {
-  console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`)
-}
+  const loadTableData = async ({ page, limit }: LoadDataParams) => {
+    const data = await getUserListPage({
+      page,
+      limit,
+      departmentIds: state.departmentIds.length ? state.departmentIds : undefined,
+    });
+    return data;
+  };
+
+  const onContextMenuClick = (treeKey: string, menuKey: string) => {
+    console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
+  };
 </script>
 <style></style>

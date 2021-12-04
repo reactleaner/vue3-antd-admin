@@ -13,45 +13,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { DeleteOutlined, FormOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import { Popconfirm } from 'ant-design-vue'
+  import { defineComponent } from 'vue';
+  import { DeleteOutlined, FormOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { Popconfirm } from 'ant-design-vue';
 
-export default defineComponent({
-  name: 'OperateRow',
-  components: { DeleteOutlined, PlusOutlined, FormOutlined, [Popconfirm.name]: Popconfirm },
-  props: {
-    hideAdd: {
-      type: Boolean,
-      default: false
+  export default defineComponent({
+    name: 'OperateRow',
+    components: { DeleteOutlined, PlusOutlined, FormOutlined, [Popconfirm.name]: Popconfirm },
+    props: {
+      hideAdd: {
+        type: Boolean,
+        default: false,
+      },
+      hideDel: {
+        type: Boolean,
+        default: false,
+      },
+      hideEdit: {
+        type: Boolean,
+        default: false,
+      },
     },
-    hideDel: {
-      type: Boolean,
-      default: false
+    emits: ['delete', 'edit', 'add'],
+    setup() {
+      return {};
     },
-    hideEdit: {
-      type: Boolean,
-      default: false
-    }
-  },
-  emits: ['delete', 'edit', 'add'],
-  setup() {
-    return {}
-  }
-})
+  });
 </script>
 
 <style lang="less" scoped>
-.actions {
-  display: none;
-  float: right;
+  .actions {
+    display: none;
+    float: right;
 
-  > :deep(span) {
-    margin-left: 5px;
+    > :deep(span) {
+      margin-left: 5px;
 
-    &:hover {
-      color: #40a9ff;
+      &:hover {
+        color: #40a9ff;
+      }
     }
   }
-}
 </style>

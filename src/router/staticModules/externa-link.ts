@@ -1,5 +1,5 @@
-import { RouteRecordRaw } from 'vue-router'
-import { RouterTransition } from '@/components/transition'
+import { RouteRecordRaw } from 'vue-router';
+import { RouterTransition } from '@/components/transition';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,9 +8,9 @@ const routes: Array<RouteRecordRaw> = [
     component: RouterTransition,
     meta: {
       title: 'H5低代码平台',
-      icon: 'icon-externa-link'
-    }
-  }
-]
+      icon: 'icon-externa-link',
+    },
+  },
+];
 
-export default routes
+export default routes;

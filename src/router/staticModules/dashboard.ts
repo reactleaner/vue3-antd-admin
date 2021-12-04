@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from 'vue-router'
-import { RouterTransition } from '@/components/transition'
+import { RouteRecordRaw } from 'vue-router';
+import { RouterTransition } from '@/components/transition';
 
-const routeName = 'dashboard'
+const routeName = 'dashboard';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RouterTransition,
     meta: {
       title: '系统看板',
-      icon: 'icon-yibiaopan'
+      icon: 'icon-yibiaopan',
     },
     children: [
       {
@@ -19,15 +19,15 @@ const routes: Array<RouteRecordRaw> = [
         name: `${routeName}-welcome`,
         meta: {
           title: '首页',
-          icon: 'icon-shouye'
+          icon: 'icon-shouye',
         },
         component: () =>
           import(
             /* webpackChunkName: "dashboard-welcome" */ '@/views/shared/dashboard/welcome/index.vue'
-          )
-      }
-    ]
-  }
-]
+          ),
+      },
+    ],
+  },
+];
 
-export default routes
+export default routes;

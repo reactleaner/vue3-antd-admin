@@ -2,11 +2,11 @@
  * 格式化参数
  */
 function formatParams(data = {}) {
-  const arr: any[] = []
+  const arr: any[] = [];
   for (const name in data) {
-    arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]))
+    arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
   }
-  return arr.join('&')
+  return arr.join('&');
 }
 
 /**
@@ -14,7 +14,7 @@ function formatParams(data = {}) {
  */
 class PerformanceMonitor {
   // 任务列表，存放所有任务
-  private reqDataList: any[] = []
+  private reqDataList: any[] = [];
   private options = {
     reportUrl: location.href, // 上报地址
     appId: '', // 项目ID
@@ -23,35 +23,35 @@ class PerformanceMonitor {
     infoType: 'preformance', // 信息类别
     timeSpan: Date.now(), // 发送数据时的时间戳
     userAgent: navigator.userAgent,
-    isSendBeacon: false
-  }
+    isSendBeacon: false,
+  };
 
   constructor(ops) {
-    Object.assign(this.options, ops)
+    Object.assign(this.options, ops);
 
-    this.init()
+    this.init();
   }
 
   init() {
-    this.listenOnLoad()
+    this.listenOnLoad();
   }
 
   listenOnLoad() {
     window.addEventListener('load', () => {
       setTimeout(() => {
         this.delaySetPerformanceData({
-          currenPagetUrl: location.href
-        })
-      })
-    })
+          currenPagetUrl: location.href,
+        });
+      });
+    });
   }
 
   delaySetPerformanceData(obj) {
-    this.savePerformanceData(obj)
+    this.savePerformanceData(obj);
   }
 
   getPerformanceData() {
-    const { timing, memory, navigation } = window.performance as any
+    const { timing } = window.performance as any;
     const {
       navigationStart = 0, // 准备加载页面的起始时间
       //   unloadEventStart = 0, // 如果前一个文档和当前文档同源,返回前一个文档开始unload的时间
@@ -73,8 +73,8 @@ class PerformanceMonitor {
       domContentLoadedEventEnd = 0, // DOMContentLoaded事件结束的时间
       domComplete = 0, // current document readiness被设置 complete的时间
       //   loadEventStart = 0, // 触发onload事件的时间
-      loadEventEnd = 0 // onload事件结束的时间
-    } = timing
+      loadEventEnd = 0, // onload事件结束的时间
+    } = timing;
 
     // const {
     //     usedJSHeapSize = 0, // JS 对象（包括V8引擎内部对象）占用的内存，一定小于 totalJSHeapSize，否则可能出现内存泄漏
@@ -82,21 +82,21 @@ class PerformanceMonitor {
     // } = memory;
 
     // 准备新页面时间耗时
-    const prepareNewPageTime = fetchStart - navigationStart
+    const prepareNewPageTime = fetchStart - navigationStart;
     // DNS查询耗时
-    const queryDNSTime = domainLookupEnd - domainLookupStart
+    const queryDNSTime = domainLookupEnd - domainLookupStart;
     // TCP链接耗时
-    const connectionTCPTime = connectEnd - connectStart
+    const connectionTCPTime = connectEnd - connectStart;
     // request请求耗时
-    const requestTime = responseEnd - responseStart
+    const requestTime = responseEnd - responseStart;
     // 解析dom树耗时
-    const analysisDOMTime = domComplete - domInteractive
+    const analysisDOMTime = domComplete - domInteractive;
     // 白屏时间
-    const whiteScreenTime = responseStart - navigationStart
+    const whiteScreenTime = responseStart - navigationStart;
     // domready时间
-    const domReadyTime = domContentLoadedEventEnd - navigationStart
+    const domReadyTime = domContentLoadedEventEnd - navigationStart;
     // onload执行完成时间
-    const onloadSuccessTime = loadEventEnd - navigationStart
+    const onloadSuccessTime = loadEventEnd - navigationStart;
 
     // 内存是否溢出
     // const memoryOverFlow = totalJSHeapSize > usedJSHeapSize ? 0 : 1;
@@ -113,20 +113,20 @@ class PerformanceMonitor {
       analysisDOMTime,
       whiteScreenTime,
       domReadyTime,
-      onloadSuccessTime
+      onloadSuccessTime,
       // memoryOverFlow,
       // pageLoadTypeStr
       // pageLoadType
-    }
+    };
   }
 
   async savePerformanceData(obj) {
-    const performanceInfo = this.getPerformanceData()
+    const performanceInfo = this.getPerformanceData();
     await Object.assign(performanceInfo, obj, {
-      timeSpan: Date.now()
-    })
-    this.reqDataList.push(Object.assign({}, this.options, performanceInfo))
-    await this.asyncSendReport()
+      timeSpan: Date.now(),
+    });
+    this.reqDataList.push(Object.assign({}, this.options, performanceInfo));
+    await this.asyncSendReport();
   }
 
   /**
@@ -136,27 +136,27 @@ class PerformanceMonitor {
   pageLoadMethod(type) {
     switch (type) {
       case 0:
-        return '点击链接、地址栏输入、表单提交、脚本操作等方式加载'
+        return '点击链接、地址栏输入、表单提交、脚本操作等方式加载';
       case 1:
-        return '通过“重新加载”按钮或者location.reload()方法加载'
+        return '通过“重新加载”按钮或者location.reload()方法加载';
       case 2:
-        return '网页通过“前进”或“后退”按钮加载'
+        return '网页通过“前进”或“后退”按钮加载';
       default:
-        return '任何其他来源的加载'
+        return '任何其他来源的加载';
     }
   }
 
   asyncSendReport() {
-    const { isSendBeacon = false, reportUrl = '' } = this.options
-    const repDataList = this.reqDataList
+    const { isSendBeacon = false, reportUrl = '' } = this.options;
+    const repDataList = this.reqDataList;
 
     while (repDataList.length > 0) {
-      const reqData = repDataList.shift()
-      ;((data) => {
+      const reqData = repDataList.shift();
+      ((data) => {
         setTimeout(() => {
-          this.sendReport(data, reportUrl, isSendBeacon)
-        })
-      })(reqData)
+          this.sendReport(data, reportUrl, isSendBeacon);
+        });
+      })(reqData);
     }
   }
 
@@ -167,19 +167,19 @@ class PerformanceMonitor {
    */
   sendReport(performance, reportUrl, isSendBeacon = false) {
     if (isSendBeacon && navigator.sendBeacon) {
-      this.sendBeacon(performance, reportUrl)
-      return
+      this.sendBeacon(performance, reportUrl);
+      return;
     }
-    this.sendImage(performance, reportUrl)
+    this.sendImage(performance, reportUrl);
   }
 
   sendBeacon(data, reportUrl) {
-    navigator.sendBeacon(reportUrl, JSON.stringify(data))
+    navigator.sendBeacon(reportUrl, JSON.stringify(data));
   }
 
   sendImage(data, reportUrl) {
-    const image = new Image()
-    image.src = `${reportUrl}?${formatParams(data)}`
+    const image = new Image();
+    image.src = `${reportUrl}?${formatParams(data)}`;
   }
 }
 
@@ -187,5 +187,5 @@ export default new PerformanceMonitor({
   reportUrl: 'http://localhost:10300/performanceMonitor', // 性能上报地址
   appId: 'performanceMonitor-1559318109525', // 项目ID
   appName: 'performanceMonitor', // 项目名称
-  env: 'dev' // 环境：dev、test、uat、pro
-})
+  env: 'dev', // 环境：dev、test、uat、pro
+});

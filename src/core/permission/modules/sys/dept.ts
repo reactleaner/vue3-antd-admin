@@ -5,5 +5,5 @@ export default {
   delete: 'sys/dept/delete',
   add: 'sys/dept/add',
   info: 'sys/dept/info',
-  transfer: 'sys/dept/transfer'
-}
+  transfer: 'sys/dept/transfer',
+};

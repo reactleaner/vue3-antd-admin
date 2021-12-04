@@ -1,31 +1,42 @@
-import type { FormItemSchema } from '@/components/JSON-schema-form/types/form'
+import type { FormItemSchema } from '@/components/JSON-schema-form/types/form';
+import { getRoleList } from '@/api/system/role';
 
 export const schemas: FormItemSchema[] = [
   {
-    field: 'field1',
-    component: 'Input',
-    label: '字段1',
+    field: 'dept',
+    component: 'TreeSelect',
+    label: '所属部门',
     componentProps: {
-      placeholder: '自定义placeholder',
-      onChange: (e: any) => {
-        console.log(e)
-      }
-    }
+      // fieldNames: {
+      //   label: 'deptName',
+      //   key: 'id',
+      //   value: 'id'
+      // },
+      getPopupContainer: () => document.body,
+    },
+    rules: [{ required: true, type: 'string' }],
   },
   {
-    field: 'field2',
-    component: 'Input',
-    label: '字段2'
+    field: 'roles',
+    component: 'Select',
+    label: '所属角色',
+    rules: [{ required: true, type: 'number' }],
+    componentProps: {
+      request: async () => {
+        const data = await getRoleList();
+        return data.map((n) => ({ label: n.name, value: n.id }));
+      },
+    },
   },
   {
     field: 'field3',
     component: 'DatePicker',
-    label: '字段3'
+    label: '字段3',
   },
   {
     field: 'fieldTime',
     component: 'RangePicker',
-    label: '时间字段'
+    label: '时间字段',
   },
   {
     field: 'field4',
@@ -36,15 +47,15 @@ export const schemas: FormItemSchema[] = [
         {
           label: '选项1',
           value: '1',
-          key: '1'
+          key: '1',
         },
         {
           label: '选项2',
           value: '2',
-          key: '2'
-        }
-      ]
-    }
+          key: '2',
+        },
+      ],
+    },
   },
   {
     field: 'field5',
@@ -54,14 +65,14 @@ export const schemas: FormItemSchema[] = [
       options: [
         {
           label: '选项1',
-          value: '1'
+          value: '1',
         },
         {
           label: '选项2',
-          value: '2'
-        }
-      ]
-    }
+          value: '2',
+        },
+      ],
+    },
   },
   {
     field: 'field7',
@@ -71,13 +82,13 @@ export const schemas: FormItemSchema[] = [
       options: [
         {
           label: '选项1',
-          value: '1'
+          value: '1',
         },
         {
           label: '选项2',
-          value: '2'
-        }
-      ]
-    }
-  }
-]
+          value: '2',
+        },
+      ],
+    },
+  },
+];

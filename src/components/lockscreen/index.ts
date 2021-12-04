@@ -1,3 +1,3 @@
-import LockScreen from './index.vue'
+import LockScreen from './index.vue';
 
-export { LockScreen }
+export { LockScreen };

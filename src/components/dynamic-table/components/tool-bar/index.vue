@@ -3,9 +3,9 @@
 </template>
 
 <script>
-export default {
-  name: 'Index'
-}
+  export default {
+    name: 'ToolBar',
+  };
 </script>
 
 <style scoped></style>

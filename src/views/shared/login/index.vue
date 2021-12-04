@@ -49,89 +49,94 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { message, Modal } from 'ant-design-vue'
-import { UserOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons-vue'
-import { useUserStore } from '@/store/modules/user'
-import { getImageCaptcha } from '@/api/login'
-import { SvgIcon } from '@/components/svg-icon'
+  import { reactive } from 'vue';
+  import { message, Modal } from 'ant-design-vue';
+  import { UserOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons-vue';
+  import { useUserStore } from '@/store/modules/user';
+  import { getImageCaptcha } from '@/api/login';
+  import { SvgIcon } from '@/components/svg-icon';
+  import { useRoute, useRouter } from 'vue-router';
 
-const state = reactive({
-  loading: false,
-  captcha: '',
-  formInline: {
-    username: 'luffyfe',
-    password: '123456',
-    verifyCode: '',
-    captchaId: ''
-  }
-})
+  const state = reactive({
+    loading: false,
+    captcha: '',
+    formInline: {
+      username: 'luffyfe',
+      password: '123456',
+      verifyCode: '',
+      captchaId: '',
+    },
+  });
 
-const userStore = useUserStore()
+  const route = useRoute();
+  const router = useRouter();
 
-const setCaptcha = async () => {
-  const { id, img } = await getImageCaptcha({ width: 100, height: 50 })
-  state.captcha = img
-  state.formInline.captchaId = id
-}
-setCaptcha()
+  const userStore = useUserStore();
 
-const handleSubmit = async () => {
-  const { username, password } = state.formInline
-  if (username.trim() == '' || password.trim() == '') {
-    return message.warning('用户名或密码不能为空！')
-  }
-  message.loading('登录中...', 0)
-  state.loading = true
-  console.log(state.formInline)
-  // params.password = md5(password)
-  try {
-    await userStore.login(state.formInline).finally(() => {
-      state.loading = false
-      message.destroy()
-    })
-    message.success('登录成功！')
-  } catch (error: any) {
-    Modal.error({
-      title: () => '提示',
-      content: () => error.message
-    })
-    setCaptcha()
-  }
-}
+  const setCaptcha = async () => {
+    const { id, img } = await getImageCaptcha({ width: 100, height: 50 });
+    state.captcha = img;
+    state.formInline.captchaId = id;
+  };
+  setCaptcha();
+
+  const handleSubmit = async () => {
+    const { username, password } = state.formInline;
+    if (username.trim() == '' || password.trim() == '') {
+      return message.warning('用户名或密码不能为空！');
+    }
+    message.loading('登录中...', 0);
+    state.loading = true;
+    console.log(state.formInline);
+    // params.password = md5(password)
+    try {
+      await userStore.login(state.formInline).finally(() => {
+        state.loading = false;
+        message.destroy();
+      });
+      message.success('登录成功！');
+      router.replace((route.query.redirect as string) ?? '/');
+    } catch (error: any) {
+      Modal.error({
+        title: () => '提示',
+        content: () => error.message,
+      });
+      setCaptcha();
+    }
+  };
 </script>
 
 <style lang="less" scoped>
-.login-box {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  padding-top: 240px;
-  background: url('~@/assets/login.svg');
-  background-size: 100%;
-  flex-direction: column;
-  align-items: center;
-
-  .login-logo {
+  .login-box {
     display: flex;
-    margin-bottom: 30px;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 240px;
+    background: url('~@/assets/login.svg');
+    background-size: 100%;
+    flex-direction: column;
     align-items: center;
 
-    .svg-icon {
-      font-size: 48px;
+    .login-logo {
+      display: flex;
+      margin-bottom: 30px;
+      align-items: center;
+
+      .svg-icon {
+        font-size: 48px;
+      }
+    }
+
+    :deep(.ant-form) {
+      width: 400px;
+
+      .ant-col {
+        width: 100%;
+      }
+
+      .ant-form-item-label {
+        padding-right: 6px;
+      }
     }
   }
-
-  :deep(.ant-form) {
-    width: 400px;
-
-    .ant-col {
-      width: 100%;
-    }
-
-    .ant-form-item-label {
-      padding-right: 6px;
-    }
-  }
-}
 </style>

@@ -4,5 +4,5 @@ export default {
   add: 'sys/role/add',
   update: 'sys/role/update',
   delete: 'sys/role/delete',
-  info: 'sys/role/info'
-}
+  info: 'sys/role/info',
+};

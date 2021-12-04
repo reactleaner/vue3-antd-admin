@@ -1,4 +1,4 @@
-import { request, BaseResponse } from '@/utils/request'
+import { request, BaseResponse } from '@/utils/request';
 
 /**
  * @description 登录
@@ -10,12 +10,12 @@ export function login(data: API.LoginParams) {
     {
       url: 'login',
       method: 'post',
-      data
+      data,
     },
     {
-      isGetDataDirectly: false
-    }
-  )
+      isGetDataDirectly: false,
+    },
+  );
 }
 /**
  * @description 获取验证码
@@ -24,8 +24,8 @@ export function getImageCaptcha(params?: API.CaptchaParams) {
   return request<API.CaptchaResult>({
     url: 'captcha/img',
     method: 'get',
-    params
-  })
+    params,
+  });
 }
 
 /**
@@ -36,10 +36,10 @@ export function logout(data: { token: string }) {
     {
       url: 'account/logout',
       method: 'post',
-      data
+      data,
     },
     {
-      isGetDataDirectly: false
-    }
-  )
+      isGetDataDirectly: false,
+    },
+  );
 }

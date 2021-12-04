@@ -15,16 +15,16 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { Alert } from 'ant-design-vue'
-import { ACustomModal } from '@/components/a-custom-modal'
+  import { reactive } from 'vue';
+  import { Alert } from 'ant-design-vue';
+  import { ACustomModal } from '@/components/a-custom-modal';
 
-/**
- * @description 扩展ant-design-vue模态框功能
- */
-const state = reactive({
-  visible: false
-})
+  /**
+   * @description 扩展ant-design-vue模态框功能
+   */
+  const state = reactive({
+    visible: false,
+  });
 </script>
 
 <style scoped></style>

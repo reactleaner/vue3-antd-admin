@@ -6,28 +6,28 @@
 </template>
 
 <script setup>
-defineProps({
-  collapsed: {
-    type: Boolean
-  }
-})
+  defineProps({
+    collapsed: {
+      type: Boolean,
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.logo {
-  @apply flex overflow-hidden whitespace-nowrap items-center;
+  .logo {
+    @apply flex overflow-hidden whitespace-nowrap items-center;
 
-  height: 64px;
-  padding-left: 24px;
-  line-height: 64px;
+    height: 64px;
+    padding-left: 24px;
+    line-height: 64px;
 
-  img {
-    height: 32px;
-    margin-right: 8px;
+    img {
+      height: 32px;
+      margin-right: 8px;
+    }
+
+    .title {
+      @apply mb-0 text-white text-xl;
+    }
   }
-
-  .title {
-    @apply mb-0 text-white text-xl;
-  }
-}
 </style>

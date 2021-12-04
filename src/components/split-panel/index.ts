@@ -1,3 +1,3 @@
-import SplitPanel from './index.vue'
+import SplitPanel from './index.vue';
 
-export { SplitPanel }
+export { SplitPanel };

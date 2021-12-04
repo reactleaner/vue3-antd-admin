@@ -1,13 +1,13 @@
-import { RouterTransition } from '@/components/transition'
+import { RouterTransition } from '@/components/transition';
 
-const routeName = 'error'
+const routeName = 'error';
 
 export const notFound = {
   path: '/:pathMatch(.*)*',
   name: 'NotFound',
   redirect: '/error/404',
-  component: () => import(/* webpackChunkName: "404" */ '@/views/shared/error/404.vue')
-}
+  component: () => import(/* webpackChunkName: "404" */ '@/views/shared/error/404.vue'),
+};
 
 export const errorRoutes = {
   path: '/error',
@@ -17,7 +17,7 @@ export const errorRoutes = {
   meta: {
     title: '错误页',
     icon: 'EditOutlined',
-    hideMenu: true
+    hideMenu: true,
   },
   children: [
     {
@@ -25,11 +25,11 @@ export const errorRoutes = {
       name: `${routeName}-404`,
       meta: {
         title: '404',
-        icon: 'UserOutlined'
+        icon: 'UserOutlined',
       },
-      component: () => import(/* webpackChunkName: "404" */ '@/views/shared/error/404.vue')
-    }
-  ]
-}
+      component: () => import(/* webpackChunkName: "404" */ '@/views/shared/error/404.vue'),
+    },
+  ],
+};
 
-export default [notFound, errorRoutes]
+export default [notFound, errorRoutes];

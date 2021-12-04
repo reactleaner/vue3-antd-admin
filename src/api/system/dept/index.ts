@@ -1,6 +1,6 @@
-import { request } from '@/utils/request'
+import { request } from '@/utils/request';
 // import type { BaseResponse } from '@/utils/request';
-import Api from '@/core/permission/modules/sys/dept'
+import Api from '@/core/permission/modules/sys/dept';
 
 /**
  * @description 获取部门列表
@@ -9,8 +9,8 @@ import Api from '@/core/permission/modules/sys/dept'
 export function getDeptList() {
   return request<API.SysDeptListResult[]>({
     url: Api.list,
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 /**
@@ -22,8 +22,8 @@ export function moveDeptList(data: API.MovedDeptsParams) {
   return request({
     url: Api.move,
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 
 /**
@@ -35,8 +35,8 @@ export function deleteDept(data: API.DelDeptParams) {
   return request({
     url: 'sys/dept/delete',
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 
 /**
@@ -48,8 +48,8 @@ export function updateDept(data: API.UpdateDeptParams) {
   return request({
     url: Api.update,
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 
 /**
@@ -61,8 +61,8 @@ export function createDept(data: API.CreateDeptParams) {
   return request({
     url: Api.add,
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 /**
  * @description 查询单个部门信息
@@ -73,8 +73,8 @@ export function getDeptInfo(query: { departmentId: string | number }) {
   return request<API.GetDeptInfoResult>({
     url: Api.info,
     method: 'get',
-    params: query
-  })
+    params: query,
+  });
 }
 
 /**
@@ -86,6 +86,6 @@ export function transferDept(data: API.TransferDeptParams) {
   return request({
     url: Api.transfer,
     method: 'post',
-    data
-  })
+    data,
+  });
 }

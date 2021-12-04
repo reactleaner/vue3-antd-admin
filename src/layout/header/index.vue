@@ -53,147 +53,147 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed, createVNode } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import components from '@/layout/header/components'
-import { message, Modal } from 'ant-design-vue'
-import { QuestionCircleOutlined } from '@ant-design/icons-vue'
-import { useUserStore } from '@/store/modules/user'
-import { useLockscreenStore } from '@/store/modules/lockscreen'
+  import { defineComponent, reactive, toRefs, computed, createVNode } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
+  import components from '@/layout/header/components';
+  import { message, Modal } from 'ant-design-vue';
+  import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+  import { useUserStore } from '@/store/modules/user';
+  import { useLockscreenStore } from '@/store/modules/lockscreen';
 
-export default defineComponent({
-  name: 'PageHeader',
-  components: { ...components },
-  props: {
-    collapsed: {
-      type: Boolean
-    }
-  },
-  emits: ['update:collapsed'],
-  setup() {
-    const userStore = useUserStore()
-    const lockscreenStore = useLockscreenStore()
-
-    const state = reactive({
-      fullscreenIcon: 'FullscreenOutlined'
-    })
-
-    const router = useRouter()
-    const route = useRoute()
-
-    const username = computed(() => userStore.name)
-
-    // 退出登录
-    const doLogout = () => {
-      Modal.confirm({
-        title: '您确定要退出登录吗？',
-        icon: createVNode(QuestionCircleOutlined),
-        onOk: async () => {
-          console.log(router, '退出登录')
-          // logout({})
-          await userStore.logout()
-          message.success('成功退出登录')
-          // 移除标签页
-          localStorage.clear()
-          router.replace({
-            name: 'login',
-            query: {
-              redirect: route.fullPath
-            }
-          })
-        }
-      })
-    }
-
-    // 切换全屏图标
-    const toggleFullscreenIcon = () =>
-      (state.fullscreenIcon =
-        document.fullscreenElement !== null ? 'FullscreenExitOutlined' : 'FullscreenOutlined')
-
-    // 监听全屏切换事件
-    document.addEventListener('fullscreenchange', toggleFullscreenIcon)
-
-    // 全屏切换
-    const toggleFullScreen = () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen()
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
-        }
-      }
-    }
-
-    // 图标列表
-    const iconList = [
-      {
-        icon: 'SearchOutlined',
-        tips: '搜索'
+  export default defineComponent({
+    name: 'PageHeader',
+    components: { ...components },
+    props: {
+      collapsed: {
+        type: Boolean,
       },
-      {
-        icon: 'GithubOutlined',
-        tips: 'github',
-        eventObject: {
-          click: () => window.open('https://github.com/buqiyuan/vue3-antd-admin')
+    },
+    emits: ['update:collapsed'],
+    setup() {
+      const userStore = useUserStore();
+      const lockscreenStore = useLockscreenStore();
+
+      const state = reactive({
+        fullscreenIcon: 'FullscreenOutlined',
+      });
+
+      const router = useRouter();
+      const route = useRoute();
+
+      const username = computed(() => userStore.name);
+
+      // 退出登录
+      const doLogout = () => {
+        Modal.confirm({
+          title: '您确定要退出登录吗？',
+          icon: createVNode(QuestionCircleOutlined),
+          onOk: async () => {
+            console.log(router, '退出登录');
+            // logout({})
+            await userStore.logout();
+            message.success('成功退出登录');
+            // 移除标签页
+            localStorage.clear();
+            router.replace({
+              name: 'login',
+              query: {
+                redirect: route.fullPath,
+              },
+            });
+          },
+        });
+      };
+
+      // 切换全屏图标
+      const toggleFullscreenIcon = () =>
+        (state.fullscreenIcon =
+          document.fullscreenElement !== null ? 'FullscreenExitOutlined' : 'FullscreenOutlined');
+
+      // 监听全屏切换事件
+      document.addEventListener('fullscreenchange', toggleFullscreenIcon);
+
+      // 全屏切换
+      const toggleFullScreen = () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
         }
-      },
-      {
-        icon: 'SettingOutlined',
-        tips: '网站设置'
-      },
-      {
-        icon: 'LockOutlined',
-        tips: '锁屏',
-        eventObject: {
-          click: () => lockscreenStore.setLock(true)
-        }
-      }
-    ]
-    const getTitle = (title) => {
-      return typeof title === 'string' ? title : title?.['zh_CN']
-    }
-    return {
-      ...toRefs(state),
-      iconList,
-      username,
-      getTitle,
-      toggleFullScreen,
-      doLogout
-    }
-  }
-})
+      };
+
+      // 图标列表
+      const iconList = [
+        {
+          icon: 'SearchOutlined',
+          tips: '搜索',
+        },
+        {
+          icon: 'GithubOutlined',
+          tips: 'github',
+          eventObject: {
+            click: () => window.open('https://github.com/buqiyuan/vue3-antd-admin'),
+          },
+        },
+        {
+          icon: 'SettingOutlined',
+          tips: '网站设置',
+        },
+        {
+          icon: 'LockOutlined',
+          tips: '锁屏',
+          eventObject: {
+            click: () => lockscreenStore.setLock(true),
+          },
+        },
+      ];
+      const getTitle = (title) => {
+        return typeof title === 'string' ? title : title?.['zh_CN'];
+      };
+      return {
+        ...toRefs(state),
+        iconList,
+        username,
+        getTitle,
+        toggleFullScreen,
+        doLogout,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.layout-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  height: @header-height;
-  padding: 0;
-  background-color: #fff;
-  justify-content: space-between;
-  align-items: center;
-
-  .left-options {
+  .layout-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
+    height: @header-height;
+    padding: 0;
+    background-color: #fff;
+    justify-content: space-between;
     align-items: center;
 
-    .menu-fold {
-      padding: 0 24px;
-      cursor: pointer;
+    .left-options {
+      display: flex;
+      align-items: center;
+
+      .menu-fold {
+        padding: 0 24px;
+        cursor: pointer;
+      }
+    }
+
+    .right-options {
+      display: flex;
+      align-items: center;
+
+      > * {
+        margin-right: 20px;
+        cursor: pointer;
+      }
     }
   }
-
-  .right-options {
-    display: flex;
-    align-items: center;
-
-    > * {
-      margin-right: 20px;
-      cursor: pointer;
-    }
-  }
-}
 </style>

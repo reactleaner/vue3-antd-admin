@@ -1,21 +1,21 @@
-const Mock = require('mockjs')
-const { deepClone } = require('../utils')
-const { asyncRoutes, constantRoutes } = require('./routes.js')
+const Mock = require('mockjs');
+const { deepClone } = require('../utils');
+const { asyncRoutes, constantRoutes } = require('./routes.js');
 
-const routes = deepClone([...constantRoutes, ...asyncRoutes])
+const routes = deepClone([...constantRoutes, ...asyncRoutes]);
 
 const roles = [
   {
     key: 'admin',
     name: 'admin',
     description: 'Super Administrator. Have access to view all pages.',
-    routes: routes
+    routes: routes,
   },
   {
     key: 'editor',
     name: 'editor',
     description: 'Normal Editor. Can see all pages except permission page',
-    routes: routes.filter((i) => i.path !== '/permission') // just a mock
+    routes: routes.filter((i) => i.path !== '/permission'), // just a mock
   },
   {
     key: 'visitor',
@@ -29,13 +29,13 @@ const roles = [
           {
             path: 'dashboard',
             name: 'Dashboard',
-            meta: { title: 'dashboard', icon: 'dashboard' }
-          }
-        ]
-      }
-    ]
-  }
-]
+            meta: { title: 'dashboard', icon: 'dashboard' },
+          },
+        ],
+      },
+    ],
+  },
+];
 
 module.exports = [
   // mock get all routes form server
@@ -45,9 +45,9 @@ module.exports = [
     response: (_) => {
       return {
         code: 20000,
-        data: routes
-      }
-    }
+        data: routes,
+      };
+    },
   },
 
   // mock get all roles form server
@@ -57,9 +57,9 @@ module.exports = [
     response: (_) => {
       return {
         code: 20000,
-        data: roles
-      }
-    }
+        data: roles,
+      };
+    },
   },
 
   // add role
@@ -69,9 +69,9 @@ module.exports = [
     response: {
       code: 20000,
       data: {
-        key: Mock.mock('@integer(300, 5000)')
-      }
-    }
+        key: Mock.mock('@integer(300, 5000)'),
+      },
+    },
   },
 
   // update role
@@ -81,9 +81,9 @@ module.exports = [
     response: {
       code: 20000,
       data: {
-        status: 'success'
-      }
-    }
+        status: 'success',
+      },
+    },
   },
 
   // delete role
@@ -93,8 +93,8 @@ module.exports = [
     response: {
       code: 20000,
       data: {
-        status: 'success'
-      }
-    }
-  }
-]
+        status: 'success',
+      },
+    },
+  },
+];

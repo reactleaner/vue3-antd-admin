@@ -15,8 +15,8 @@ import {
   TreeSelect,
   Slider,
   Rate,
-  Divider
-} from 'ant-design-vue'
+  Divider,
+} from 'ant-design-vue';
 
 // import RadioButtonGroup from './components/RadioButtonGroup.vue';
 // import ApiSelect from './components/ApiSelect.vue';
@@ -59,9 +59,9 @@ const componentMap = {
   WeekPicker: DatePicker.WeekPicker,
   TimePicker: TimePicker,
 
-  Divider: Divider
-}
+  Divider: Divider,
+};
 
-export type ComponentMapType = keyof typeof componentMap
+export type ComponentMapType = keyof typeof componentMap;
 
-export { componentMap }
+export { componentMap };

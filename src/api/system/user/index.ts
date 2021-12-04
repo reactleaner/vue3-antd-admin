@@ -1,18 +1,18 @@
-import { request } from '@/utils/request'
-import Api from '@/core/permission/modules/sys/user'
-import { generatePermCode } from '@/core/permission'
+import { request } from '@/utils/request';
+import Api from '@/core/permission/modules/sys/user';
+import { generatePermCode } from '@/core/permission';
 
 export function getUserListPage(data: API.PageParams<{ departmentIds: number[] }>) {
   return request<API.TableListResult<API.UserListPageResult>>(
     {
       url: Api.page,
       method: 'post',
-      data
+      data,
     },
     {
-      permCode: generatePermCode(Api.page)
-    }
-  )
+      permCode: generatePermCode(Api.page),
+    },
+  );
 }
 
 export function createUser(data: API.CreateUserParams) {
@@ -20,12 +20,12 @@ export function createUser(data: API.CreateUserParams) {
     {
       url: Api.add,
       method: 'post',
-      data
+      data,
     },
     {
-      permCode: generatePermCode(Api.add)
-    }
-  )
+      permCode: generatePermCode(Api.add),
+    },
+  );
 }
 
 export function getUserInfo(query: { userId: number }) {
@@ -33,12 +33,12 @@ export function getUserInfo(query: { userId: number }) {
     {
       url: Api.info,
       method: 'get',
-      params: query
+      params: query,
     },
     {
-      permCode: generatePermCode(Api.info)
-    }
-  )
+      permCode: generatePermCode(Api.info),
+    },
+  );
 }
 
 export function updateUser(data: API.UpdateAdminInfoParams) {
@@ -46,12 +46,12 @@ export function updateUser(data: API.UpdateAdminInfoParams) {
     {
       url: Api.update,
       method: 'post',
-      data
+      data,
     },
     {
-      permCode: generatePermCode(Api.update)
-    }
-  )
+      permCode: generatePermCode(Api.update),
+    },
+  );
 }
 
 export function updateUserPassword(data: API.UpdateAdminUserPassword) {
@@ -59,12 +59,12 @@ export function updateUserPassword(data: API.UpdateAdminUserPassword) {
     {
       url: Api.password,
       method: 'post',
-      data
+      data,
     },
     {
-      permCode: generatePermCode(Api.password)
-    }
-  )
+      permCode: generatePermCode(Api.password),
+    },
+  );
 }
 
 export function deleteUsers(data: { userIds: number[] }) {
@@ -72,10 +72,10 @@ export function deleteUsers(data: { userIds: number[] }) {
     {
       url: Api.delete,
       method: 'post',
-      data
+      data,
     },
     {
-      permCode: generatePermCode(Api.delete)
-    }
-  )
+      permCode: generatePermCode(Api.delete),
+    },
+  );
 }

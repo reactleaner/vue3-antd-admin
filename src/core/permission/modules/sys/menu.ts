@@ -3,5 +3,5 @@ export default {
   add: 'sys/menu/add',
   update: 'sys/menu/update',
   info: 'sys/menu/info',
-  delete: 'sys/menu/delete'
-}
+  delete: 'sys/menu/delete',
+};

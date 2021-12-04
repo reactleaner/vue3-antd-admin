@@ -55,51 +55,51 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, SetupContext } from 'vue'
-import { Transition } from 'ant-design-vue/lib/_util/transition'
-import useModal from '@/components/a-custom-modal/useModal'
+  import { defineComponent, PropType, SetupContext } from 'vue';
+  import { Transition } from 'ant-design-vue/lib/_util/transition';
+  import useModal from '@/components/a-custom-modal/useModal';
 
-export default defineComponent({
-  name: 'ACustomModal',
-  components: { Transition },
-  props: {
-    title: {
-      type: String as PropType<string>,
-      default: '标题'
+  export default defineComponent({
+    name: 'ACustomModal',
+    components: { Transition },
+    props: {
+      title: {
+        type: String as PropType<string>,
+        default: '标题',
+      },
+      visible: {
+        // 弹出显隐
+        type: Boolean as PropType<boolean>,
+        default: false,
+      },
+      destroyOnClose: {
+        // 关闭后销毁
+        type: Boolean as PropType<boolean>,
+        default: false,
+      },
+      footer: {
+        type: [String],
+        // 底部内容，当不需要默认底部按钮时，可以设为 :footer="null"	string|slot
+        default: 'I am footer',
+      },
+      confirmLoading: {
+        // 确定按钮 loading
+        type: Boolean as PropType<boolean>,
+        default: false,
+      },
+      centered: {
+        // 垂直居中展示 Modal
+        type: Boolean as PropType<boolean>,
+        default: false,
+      },
     },
-    visible: {
-      // 弹出显隐
-      type: Boolean as PropType<boolean>,
-      default: false
+    emits: ['update:visible'],
+    setup(props, ctx: SetupContext) {
+      return useModal(props, ctx);
     },
-    destroyOnClose: {
-      // 关闭后销毁
-      type: Boolean as PropType<boolean>,
-      default: false
-    },
-    footer: {
-      type: [String],
-      // 底部内容，当不需要默认底部按钮时，可以设为 :footer="null"	string|slot
-      default: 'I am footer'
-    },
-    confirmLoading: {
-      // 确定按钮 loading
-      type: Boolean as PropType<boolean>,
-      default: false
-    },
-    centered: {
-      // 垂直居中展示 Modal
-      type: Boolean as PropType<boolean>,
-      default: false
-    }
-  },
-  emits: ['update:visible'],
-  setup(props, ctx: SetupContext) {
-    return useModal(props, ctx)
-  }
-})
+  });
 </script>
 
 <style lang="less">
-@import './style';
+  @import './style';
 </style>

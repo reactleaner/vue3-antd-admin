@@ -1,6 +1,6 @@
-import type { App } from 'vue'
+import type { App } from 'vue';
 
-import { AButton } from '@/components/button/index'
+import { AButton } from '@/components/button/index';
 
 import {
   Modal,
@@ -14,13 +14,13 @@ import {
   Col,
   Row,
   Select,
-  DatePicker
-} from 'ant-design-vue'
+  DatePicker,
+} from 'ant-design-vue';
 
-import 'ant-design-vue/dist/antd.css'
+import 'ant-design-vue/dist/antd.css';
 
 export function setupAntd(app: App<Element>) {
-  app.component('AButton', AButton)
+  app.component('AButton', AButton);
 
   app
     .use(Form)
@@ -34,5 +34,5 @@ export function setupAntd(app: App<Element>) {
     .use(Col)
     .use(Row)
     .use(Select)
-    .use(DatePicker)
+    .use(DatePicker);
 }
